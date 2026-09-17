@@ -1,0 +1,25 @@
+# What not to put on GitHub.
+#
+# Drop this file at the top of your course repository, beside README.md.
+# Git reads it and leaves everything listed here out of your commits.
+
+# The virtual environment. Hundreds of megabytes, rebuilt by `uv sync`
+# from pyproject.toml and uv.lock, so it never belongs in a repository.
+.venv/
+
+# marimo writes the outputs of every cell here while you work, as one large
+# JSON file per notebook. Your .py notebook stays clean because of it, which
+# is the point. Commit it and you get a file that changes every time you run
+# anything, and it carries whatever your cells printed.
+__marimo__/
+.marimo.toml
+
+# Python's compiled bytecode. Regenerated on every run.
+__pycache__/
+*.pyc
+
+# API keys and anything else private. Your repository is public.
+.env
+
+# macOS folder metadata.
+.DS_Store
