@@ -100,6 +100,35 @@ def _():
     return (freight_charges,)
 
 
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[0]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    len(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    total = sum(freight_charges)
+    total
+    return (total,)
+
+
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -182,9 +211,69 @@ def _(mo):
 
 @app.cell
 def _():
+    return
+
+
+@app.cell
+def _():
     orders = [10248, 10249, 10250, 10251, 10252]
     orders
     return (orders,)
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[-1]
+    return
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[:3]
+    return
+
+
+@app.cell
+def _(orders):
+    orders[0]
+    return
+
+
+@app.cell
+def _():
+    category = "Confections"
+    len(category)
+    return
+
+
+@app.cell
+def _(orders):
+    sum(orders)
+    return
+
+
+@app.cell
+def _(orders):
+    orders * 2
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    orders + freight_charges
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sorted(freight_charges)
+    return
+
+
+@app.cell
+def _(freight_charges):
+    sorted(freight_charges, reverse=True)
+    return
 
 
 @app.cell(hide_code=True)
@@ -220,6 +309,40 @@ def _(mo):
 @app.cell
 def _(freight_charges, orders):
     [type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    [type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
+    return
+
+
+@app.cell
+def _():
+    16.75 + "22.25"
+
+    return
+
+
+@app.cell
+def _():
+    "16.75" + "22.25"
+    return
+
+
+app._unparsable_cell(
+    r"""
+     freight_charges[0] > 20
+
+    """,
+    name="_"
+)
+
+
+@app.cell
+def _(freight_charges):
+    freight_charges[-1] == max(freight_charges)   
     return
 
 
@@ -296,6 +419,19 @@ def _(freight_charges, orders):
     return
 
 
+@app.cell
+def _(freight_charges, orders):
+    print(f"Order {orders[0]} paid ${freight_charges[0]:.2f} in freight.")
+    return
+
+
+@app.cell
+def _(freight_charges, total):
+    average = total / len(freight_charges)
+    print(f"The total freight is ${total:.2f} and the average charge is ${average:.2f}.")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -335,6 +471,23 @@ def _(freight_charges):
         if charge > 20:
             over_20.append(charge)
     over_20
+    return
+
+
+@app.cell
+def _(freight_charges):
+    def _():
+        below_25 = []
+        for charge in freight_charges:
+            if charge <= 25:
+                below_25.append(charge)
+
+        total_below_25 = sum(below_25)
+        count_below_25 = len(below_25)
+        return print(f"There are {count_below_25} charges, adding up to ${total_below_25:.2f}.")
+
+
+    _()
     return
 
 
@@ -386,6 +539,13 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges):
+    freight_charges[5]
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -406,6 +566,27 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    import pandsa
+
+    return
+
+
+@app.cell
+def _():
+    open("sales.csv"),
+    return
+
+
+app._unparsable_cell(
+    r"""
+    new_charges = [16.75, 22.25, 
+    """,
+    name="_"
+)
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -415,6 +596,18 @@ def _(mo):
 
     `max(["9.50", "16.75", "22.25"])`
     """)
+    return
+
+
+@app.cell
+def _():
+    max(["9.50", "16.75", "22.25"])
+    return
+
+
+@app.cell
+def _():
+    max(["9.50", "16.75", "22.25"])
     return
 
 
@@ -464,6 +657,24 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    max(["9.50", "16.75", "22.25"])
+    return
+
+
+@app.cell
+def _(freight_charges):
+    total = sum(freight_charges)
+    return (total,)
+
+
+@app.cell
+def _(total):
+    print(total)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -490,6 +701,17 @@ def _(mo):
 
     The square brackets inside `_ax.bar(...)` are a **list comprehension**, which **iterates** over `orders` and turns each number into text.
     """)
+    return
+
+
+@app.cell
+def _(freight_charges, orders):
+    import matplotlib.pyplot as plt
+
+    _fig, _ax = plt.subplots(figsize=(6, 2.6))
+    _ax.bar([str(_o) for _o in orders], freight_charges)
+    _ax.set_ylabel("freight")
+    _fig
     return
 
 
