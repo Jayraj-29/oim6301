@@ -95,37 +95,8 @@ def _(mo):
 
 @app.cell
 def _():
-    freight_charges = [16.75, 22.25, 25.00, 20.25, 36.25]
-    freight_charges
-    return (freight_charges,)
-
-
-@app.cell
-def _():
-    return
-
-
-@app.cell
-def _(freight_charges):
-    freight_charges[0]
-    return
-
-
-@app.cell
-def _(freight_charges):
-    len(freight_charges)
-    return
-
-
-@app.cell
-def _(freight_charges):
-    total = sum(freight_charges)
-    total
-    return (total,)
-
-
-@app.cell
-def _():
+    #freight_charges = [16.75, 22.25, 25.00, 20.25, 36.25]
+    #freight_charges
     return
 
 
@@ -147,6 +118,25 @@ def _(mo):
     *The number in brackets is an **index**, and Python counts from zero, so
     `freight_charges[0]` is the first one.*
     """)
+    return
+
+
+@app.cell
+def _():
+    #freight_charges[0]
+    return
+
+
+@app.cell
+def _():
+    #len(freight_charges)
+    return
+
+
+@app.cell
+def _():
+    #total = sum(freight_charges)
+    #total
     return
 
 
@@ -211,69 +201,9 @@ def _(mo):
 
 @app.cell
 def _():
-    return
-
-
-@app.cell
-def _():
     orders = [10248, 10249, 10250, 10251, 10252]
     orders
     return (orders,)
-
-
-@app.cell
-def _(freight_charges):
-    freight_charges[-1]
-    return
-
-
-@app.cell
-def _(freight_charges):
-    freight_charges[:3]
-    return
-
-
-@app.cell
-def _(orders):
-    orders[0]
-    return
-
-
-@app.cell
-def _():
-    category = "Confections"
-    len(category)
-    return
-
-
-@app.cell
-def _(orders):
-    sum(orders)
-    return
-
-
-@app.cell
-def _(orders):
-    orders * 2
-    return
-
-
-@app.cell
-def _(freight_charges, orders):
-    orders + freight_charges
-    return
-
-
-@app.cell
-def _(freight_charges):
-    sorted(freight_charges)
-    return
-
-
-@app.cell
-def _(freight_charges):
-    sorted(freight_charges, reverse=True)
-    return
 
 
 @app.cell(hide_code=True)
@@ -307,42 +237,8 @@ def _(mo):
 
 
 @app.cell
-def _(freight_charges, orders):
-    [type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
-    return
-
-
-@app.cell
-def _(freight_charges, orders):
-    [type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
-    return
-
-
-@app.cell
 def _():
-    16.75 + "22.25"
-
-    return
-
-
-@app.cell
-def _():
-    "16.75" + "22.25"
-    return
-
-
-app._unparsable_cell(
-    r"""
-     freight_charges[0] > 20
-
-    """,
-    name="_"
-)
-
-
-@app.cell
-def _(freight_charges):
-    freight_charges[-1] == max(freight_charges)   
+    #[type(freight_charges[0]), type(orders[0]), type("Confections"), type(freight_charges[0] > 20)]
     return
 
 
@@ -366,6 +262,18 @@ def _(mo):
     1. `"16.75" + "22.25"`
     2. `16.75 + "22.25"`
     """)
+    return
+
+
+@app.cell
+def _():
+    "16.75" + "22.25"
+    return
+
+
+@app.cell
+def _():
+    16.75 + "22.25"
     return
 
 
@@ -403,6 +311,24 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    #freight_charges[0] > 20
+    return
+
+
+@app.cell
+def _():
+    #freight_charges[-1] == max(freight_charges)
+    return
+
+
+@app.cell
+def _():
+    #type(freight_charges[0] > 20)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -416,19 +342,6 @@ def _(mo):
 @app.cell
 def _(freight_charges, orders):
     print(f"Order {orders[0]} paid ${freight_charges[0]:.2f} in freight.")
-    return
-
-
-@app.cell
-def _(freight_charges, orders):
-    print(f"Order {orders[0]} paid ${freight_charges[0]:.2f} in freight.")
-    return
-
-
-@app.cell
-def _(freight_charges, total):
-    average = total / len(freight_charges)
-    print(f"The total freight is ${total:.2f} and the average charge is ${average:.2f}.")
     return
 
 
@@ -454,6 +367,12 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges, total):
+    print(f"Total freight was ${total:.2f}, for an average of ${total / len(freight_charges):.2f} per order.")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -471,23 +390,6 @@ def _(freight_charges):
         if charge > 20:
             over_20.append(charge)
     over_20
-    return
-
-
-@app.cell
-def _(freight_charges):
-    def _():
-        below_25 = []
-        for charge in freight_charges:
-            if charge <= 25:
-                below_25.append(charge)
-
-        total_below_25 = sum(below_25)
-        count_below_25 = len(below_25)
-        return print(f"There are {count_below_25} charges, adding up to ${total_below_25:.2f}.")
-
-
-    _()
     return
 
 
@@ -521,6 +423,22 @@ def _(mo):
     return
 
 
+@app.cell
+def _(freight_charges):
+    under_25 = []
+    for _c in freight_charges:
+        if _c < 25:
+            under_25.append(_c)
+    under_25
+    return (under_25,)
+
+
+@app.cell
+def _(under_25):
+    print(f"There are {len(under_25)} charges below 25, adding up to ${sum(under_25):.2f}.")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -536,13 +454,6 @@ def _(mo):
 
     📖 Handbook: Python §10 Reading a traceback
     """)
-    return
-
-
-@app.cell
-def _(freight_charges):
-    freight_charges[5]
-
     return
 
 
@@ -566,22 +477,25 @@ def _(mo):
     return
 
 
-@app.cell
-def _():
-    import pandsa
-
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    it should be import pandas
+    """)
     return
 
 
-@app.cell
-def _():
-    open("sales.csv"),
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    No such file or directory: 'sales.csv'. First we need to upload the file in the noteboook environment.
+    """)
     return
 
 
 app._unparsable_cell(
     r"""
-    new_charges = [16.75, 22.25, 
+    There is a syntax error, the square bracket needs to be closed.
     """,
     name="_"
 )
@@ -596,12 +510,6 @@ def _(mo):
 
     `max(["9.50", "16.75", "22.25"])`
     """)
-    return
-
-
-@app.cell
-def _():
-    max(["9.50", "16.75", "22.25"])
     return
 
 
@@ -657,21 +565,40 @@ def _(mo):
     return
 
 
+app._unparsable_cell(
+    r"""
+    1  freight_charges = [16.75, 22.25, "pending", 9.50]
+    2
+    3  total = sum(freight_charges)
+    4  print(total)
+    """,
+    name="_"
+)
+
+
 @app.cell
 def _():
-    max(["9.50", "16.75", "22.25"])
+    freight_charges_fixed = [16.75, 22.25, 9.50]
+    return (freight_charges_fixed,)
+
+
+@app.cell
+def _(freight_charges_fixed):
+    total_fixed = sum(freight_charges_fixed)
+    total_fixed
     return
 
 
-@app.cell
-def _(freight_charges):
-    total = sum(freight_charges)
-    return (total,)
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Python names the total= sum(freight_charges) as the error message saying invalid syntax.
+    The line I changed is the freight_charges one. I removed the "pending" string because it is list of strings. It is different than what python has named because we are defining the variables in the first line and the actual sum is in different line but it calls the first one.
 
-
-@app.cell
-def _(total):
-    print(total)
+    I made two changes:
+    1. Renamed the variable to avoid shadowing the built-in `sum` function.
+    2. Removed the `"pending"` string from the `freight_charges` list since `sum()` requires all elements to be numeric (int/float).
+    """)
     return
 
 
