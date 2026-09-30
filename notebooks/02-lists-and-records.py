@@ -100,7 +100,6 @@ def _(cost):
 @app.cell
 def _():
     freight_charges = [16.75, 22.25, 18.75, 2000, 1900, 2400]
-
     return (freight_charges,)
 
 
@@ -126,7 +125,6 @@ def _(freight_charges):
             print(charge_1)
         elif charge_1 <= 25:
             print(charge_1)
-
     return
 
 
@@ -207,7 +205,6 @@ def _():
 def _(mo):
     mo.md(r"""
     # 3. ✏️ Your Turn
-
     Five short ones, each a small piece of code with something surprising in it. Every
     one already has its code in a cell, so there is nothing to copy.
 
@@ -237,6 +234,14 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    This variable is already defined in another cell: you are trying to give a name that already exists somewhere else in this notebook. Edit the cell that already has it, or pick a different name. marimo allows one definition per name in the whole file, which is what stops two cells from quietly disagreeing.
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     ### Your written answers
 
     Four of the drills below ask for a sentence. This cell is where they go. Click into
@@ -250,6 +255,22 @@ def _(mo):
     **D ·**
 
     **E ·**
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Four of the drills below ask for a sentence. This cell is where they go. Click into it, write under the letter, and press Ctrl+Enter. Code still goes in cells of your own, added with the + button.
+
+    A ·When a score satisfies more than one test, the first condition that is true decides what prints — Python checks if, then elif in order, and stops at the first one that matches.
+
+    C ·append always adds exactly one item, whatever you hand it — even a whole list counts as just one item.sorted(tickers) builds and hands back a new list, while tickers.sort() rearranges tickers in place and hands back nothing at all, which Python shows as None.
+
+    D ·sorted(tickers) builds and hands back a new list, while tickers.sort() rearranges tickers in place and hands back nothing at all, which Python shows as None.
+
+    E ·E goes in its own markdown cell near section E, not here — it's not one of the four listed in this cell.
     """)
     return
 
@@ -278,9 +299,11 @@ def _(mo):
 
 @app.cell
 def _():
-    score = 95
+    score = 55
     if score >= 60:
         print("Pass")
+    elif score <60:
+        print("fail")
     elif score >= 90:
         print("A")
     return
@@ -308,8 +331,46 @@ def _(mo):
 
 @app.cell
 def _():
+    return
+
+
+@app.cell
+def _():
     statuses = ["shipped", "pending", "shipped", "cancelled", "shipped"]
     statuses
+    return (statuses,)
+
+
+@app.cell
+def _(statuses):
+    def _():
+        shipped_count = 0
+        for status in statuses:
+            if status == "shipped":
+                shipped_count = shipped_count + 1
+        return shipped_count
+
+
+    _()
+    return
+
+
+@app.cell
+def _(statuses):
+    def _():
+        pending_count = 0
+        for status in statuses:
+            if status == "pending" or status == "cancelled":
+                pending_count = pending_count + 1
+        return pending_count
+
+
+    _()
+    return
+
+
+@app.cell
+def _():
     return
 
 
@@ -337,8 +398,22 @@ def _(mo):
 @app.cell
 def _():
     order_lines = ["notebook", "pen"]
-    order_lines.append(["stapler", "tape"])
+    order_lines.extend(["stapler", "tape"])
     len(order_lines)
+    return (order_lines,)
+
+
+@app.cell
+def _(order_lines):
+    order_lines[2]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    append always adds exactly one item, no matter what you hand it even a whole list counts as one item.
+    """)
     return
 
 
@@ -369,6 +444,20 @@ def _():
     print(sorted(tickers))
     print(tickers.sort())
     tickers
+    return (tickers,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    sorted(tickers) builds and hands back a new list, while tickers.sort() rearranges tickers in place and hands back nothing at all, which Python shows as None.
+    """)
+    return
+
+
+@app.cell
+def _(tickers):
+    sorted(tickers, reverse=True)
     return
 
 
@@ -402,9 +491,23 @@ def _(mo):
 @app.cell
 def _():
     prices = [12.50, 8.00, 19.99]
-    sale_prices = prices
+    sale_prices = prices[:]
     sale_prices.append(4.99)
     prices
+    return prices, sale_prices
+
+
+@app.cell
+def _(prices, sale_prices):
+    prices is sale_prices
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    you would want two names for the same list on purpose when you want a change made through one name to show up wherever the order name is used too for example sevral parts of a program tracking one shred shopping cart
+    """)
     return
 
 
