@@ -138,8 +138,6 @@ def _():
     # 4. list: colours = ["red", "green"]
     # 5. index: colour[0]
     # 6. loop: for colour in colours: print(color)
-
-
     # 7. condition: if age >=18 print("adlut")
     # 8. f-string:  f"My age is {age}"
     # 9. many into one number: sum([1, 2, 3])
@@ -678,11 +676,6 @@ def _(statuses):
     return
 
 
-@app.cell
-def _():
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -807,11 +800,6 @@ def _():
     return (orders,)
 
 
-@app.cell
-def _():
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -884,11 +872,6 @@ def _(orders):
 
 
     _()
-    return
-
-
-@app.cell
-def _():
     return
 
 
@@ -979,11 +962,6 @@ def _(mo):
     mo.md(r"""
     To get the total portfolio value, multiply the individual share prices by the total shares, and then add up all six of those amounts to get the total cost of the portfolio.
     """)
-    return
-
-
-@app.cell
-def _():
     return
 
 
