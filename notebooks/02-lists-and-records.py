@@ -132,17 +132,19 @@ def _(freight_charges):
 def _():
     # Your own example of each name.
 
-    # 1. value:
-    # 2. name and assignment:
-    # 3. type:
-    # 4. list:
-    # 5. index:
-    # 6. loop:
-    # 7. condition:
-    # 8. f-string:
-    # 9. many into one number:
-    # 10. function and argument:
-    # 11. error:
+    # 1. value:42
+    # 2. name and assignment: age = 30
+    # 3. type: type("hello")
+    # 4. list: colours = ["red", "green"]
+    # 5. index: colour[0]
+    # 6. loop: for colour in colours: print(color)
+
+
+    # 7. condition: if age >=18 print("adlut")
+    # 8. f-string:  f"My age is {age}"
+    # 9. many into one number: sum([1, 2, 3])
+    # 10. function and argument: sorted(colors, reverse=True)
+    # 11. error: colors[10]
     return
 
 
@@ -198,7 +200,7 @@ def _(mo):
 def _():
     charges = [16.75, 22.25, 25.00, 20.25, 36.25]
     charges
-    return
+    return (charges,)
 
 
 @app.cell(hide_code=True)
@@ -370,7 +372,17 @@ def _(statuses):
 
 
 @app.cell
-def _():
+def _(statuses):
+    def _():
+        shipped_count = 0
+        for status in statuses:
+            if status == "shipped":
+                shipped_count = shipped_count + 1
+        percent_shipped = shipped_count / len(statuses) * 100
+        return percent_shipped
+
+
+    _()
     return
 
 
@@ -511,6 +523,19 @@ def _(mo):
     return
 
 
+@app.cell
+def _(sale_prices):
+    def _():
+        discounted = []
+        for price in sale_prices:
+            discounted.append(price*0.9)
+        return discounted
+
+
+    _()
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -542,6 +567,32 @@ def _():
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
+    For "100"+"50" the output is showing 10050 because it is a string.
+    """)
+    return
+
+
+@app.cell
+def _():
+    int("100") + int("50")
+    return
+
+
+@app.cell
+def _():
+    int("100.5")
+    return
+
+
+@app.cell
+def _():
+    float("100.5")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     > **Advanced · G · Off the end.** `charges` in section 2 holds last week's five freight
     > charges. This one has no cell of its own, because every line in it fails on
     > purpose and a notebook that raises on load is a nuisance.
@@ -558,6 +609,77 @@ def _(mo):
     > `3 of 5 orders shipped (60%)`. An f-string is the short way to build a sentence out of
     > values, and it was section 5 of last week's notebook.
     """)
+    return
+
+
+@app.cell
+def _(charges):
+    charges[5]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    there is no position 5 counting from zero means the last valid index is always one less than the length of the list. this raise an INdex error
+    """)
+    return
+
+
+@app.cell
+def _(charges):
+    charges[-1]
+    charges[len(charges)-1]
+    return
+
+
+@app.cell
+def _(charges):
+    print(charges[-1])
+    print(charges[len(charges)-1])
+    return
+
+
+@app.cell
+def _(charges):
+    charges[-6]
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    This also raises an Indexerror. charges has five items, so valid negative indices only go from -1 to -5 . -6 asks for one position further back than the list goes the same was 5 asked for one position further forward than the list goes.
+    """)
+    return
+
+
+@app.cell
+def _(statuses):
+    shipped = 0
+    for status in statuses:
+        if status =="shipped":
+            shipped = shipped + 1
+
+    total = len(statuses)
+    print(f"{shipped} of {total}orders shipped")
+    return
+
+
+@app.cell
+def _(statuses):
+    shipped2 = 0
+    for status2 in statuses:
+        if status2 == "shipped":
+            shipped2 = shipped2 + 1
+    total2 = len(statuses)
+    percent2 = shipped2 / total2 * 100
+    print(f"{shipped2} of {total2} orders shipped ({percent2}%)")
+    return
+
+
+@app.cell
+def _():
     return
 
 
@@ -603,6 +725,12 @@ def _(first_order):
     return
 
 
+@app.cell
+def _(first_order):
+    first_order["Freight"]
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -617,6 +745,14 @@ def _(mo):
     Two of them fail, and both give the same kind of error. Add a cell and find out
     which, and what the message says. A `KeyError` names the key it could not find.
     """)
+    return
+
+
+@app.cell
+def _(first_order):
+    first_order["Freight"]
+    first_order["freight"]
+    first_order[0]
     return
 
 
@@ -671,6 +807,11 @@ def _():
     return (orders,)
 
 
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -709,6 +850,48 @@ def _(mo):
     return
 
 
+@app.cell
+def _(orders):
+    total_freight = 0
+    for order in orders:
+        total_freight = total_freight + order["Freight"]
+        total_freight
+    return
+
+
+@app.cell
+def _(orders):
+    def _():
+        not_shipped = 0
+        for order in orders :
+              if order["ShippedDate"] is None:
+                not_shipped = not_shipped + 1
+        return not_shipped
+
+
+    _()
+    return
+
+
+@app.cell
+def _(orders):
+    def _():
+        largest_so_far = orders[0]
+        for order in orders:
+            if order["Freight"] > largest_so_far["Freight"]:
+                largest_so_far = order
+        return largest_so_far
+
+
+    _()
+    return
+
+
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -726,11 +909,29 @@ def _(mo):
     return
 
 
+@app.cell
+def _(orders):
+    def _():
+        for order in orders:
+            if order["ShippedDate"] is None:
+                print(order["OrderID"], order["OrderDate"])
+
+
+
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    *One row is ...*
+    One row is one customer order which is a single purchase made on one data with its own shipping details and freight cost
+    """)
+    return
 
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
     *(Replace this line with your own sentence. If this cell shows you code instead of
     text, use the cell menu to turn it into a markdown cell.)*
     """)
@@ -770,6 +971,49 @@ def _():
         {"Symbol": "TSLA", "Shares": 150, "Price": 255.70},
     ]
     portfolio
+    return (portfolio,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    To get the total portfolio value, multiply the individual share prices by the total shares, and then add up all six of those amounts to get the total cost of the portfolio.
+    """)
+    return
+
+
+@app.cell
+def _():
+    return
+
+
+@app.cell
+def _(portfolio):
+    total_cost = 0
+    for holding in portfolio:
+        total_cost = total_cost + holding["Shares"] * holding["Price"]
+    total_cost
+    return
+
+
+@app.cell
+def _():
+    grocery_list = [
+        {"Item": "Rice", "Quantity": 3, "UnitPrice": 2.50},
+        {"Item": "Milk", "Quantity": 2, "UnitPrice": 1.80},
+        {"Item": "Eggs", "Quantity": 12, "UnitPrice": 0.25},
+        {"Item": "Bread", "Quantity": 1, "UnitPrice": 3.20},
+    ]
+    grocery_list
+    return (grocery_list,)
+
+
+@app.cell
+def _(grocery_list):
+    grocery_total = 0
+    for item in grocery_list:
+        grocery_total = grocery_total + item["Quantity"] * item["UnitPrice"]
+    grocery_total
     return
 
 
@@ -799,7 +1043,7 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    _lines = ["name,shares,price"]
+    _lines = ["name, shares, price"]
     for _holding in [
         ("AAPL", 100, 173.93), ("MSFT", 50, 319.53), ("GOOG", 80, 131.36),
         ("AMZN", 200, 129.33), ("NVDA", 20, 410.17), ("TSLA", 150, 255.70),

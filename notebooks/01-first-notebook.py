@@ -274,6 +274,7 @@ def _():
 @app.cell
 def _():
     16.75 + "22.25"
+
     return
 
 
