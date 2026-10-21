@@ -125,7 +125,7 @@ def _(mo):
 app._unparsable_cell(
     r"""
     def compute_cost(portfolio)
-        cost_so_far 
+        cost_so_far
     """,
     name="_"
 )
@@ -136,7 +136,7 @@ app._unparsable_cell(
     def compute_cost(portfolio):
         \"\"\" Computes the total cost of a portfolio.
             portfolio:list of tuples (symbols,)
-    
+
         \"\"\"
         cost_so_far = 0
         for symbol, shares, price in portfolio:
@@ -491,7 +491,7 @@ def _(mo):
        board_reply = requests.post(
            "https://oim.zhili.dev/message",
            headers={"x-token": "<your-github-username>"},
-           json={"message": f"{town_name}: ${town_bill:,}"},
+           json={"message": "<your-message>"},
            timeout=10,
        )
        board_reply.status_code, board_reply.json()
@@ -504,6 +504,34 @@ def _(mo):
     **Going further.** Post something more useful than one town's bill: choose a question somebody would ask, answer it from live data, and post the answer, in 140 characters or fewer.
     """)
     return
+
+
+@app.cell
+def _(requests):
+    HEY = "<your-message>"
+
+    board_reply = requests.post(
+        "https://oim.zhili.dev/message",
+        headers={"x-token": "<your-github-username>"},
+        json={"message": HEY},
+        timeout=10,
+    )
+    board_reply.status_code, board_reply.json()
+    return
+
+
+app._unparsable_cell(
+    r"""
+    board_reply = requests.post(
+        "https://oim.zhili.dev/message",
+        headers={"x-token": "<your-github-username>"},
+        json={"message": "<your-message>"},
+        timeout=10,
+
+    board_reply.status_code, board_reply.json()
+    """,
+    name="_"
+)
 
 
 @app.cell(hide_code=True)
