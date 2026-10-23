@@ -162,24 +162,41 @@ def _(
 
     all_towns, total_towns = get_towns(county.value)
 
+    all_town_records = []
     passing_towns = []
     for _town in all_towns:
         _record = get_year_record(_town["dor_code"], fiscal_year.value)
         if _record is None:
             continue
+        _town_record = {
+            "name": _town["name"],
+            "dor_code": _town["dor_code"],
+            "value": _record["average_single_family_value_dollars"],
+            "rate": _record["residential_rate_per_thousand"],
+            "bill": _record["average_single_family_bill_dollars"],
+        }
+        all_town_records.append(_town_record)
         if _record["average_single_family_value_dollars"] <= budget_dollars.value and _record["average_single_family_bill_dollars"] < tax_limit_dollars.value:
-            passing_towns.append({
-                "name": _town["name"],
-                "dor_code": _town["dor_code"],
-                "value": _record["average_single_family_value_dollars"],
-                "rate": _record["residential_rate_per_thousand"],
-                "bill": _record["average_single_family_bill_dollars"],
-            })
+            passing_towns.append(_town_record)
 
     passing_towns_sorted = sorted(passing_towns, key=get_bill)
 
     len(all_towns), total_towns, len(passing_towns_sorted)
-    return (passing_towns_sorted,)
+    return all_town_records, passing_towns_sorted
+
+
+@app.cell
+def _(all_town_records, county, fiscal_year):
+    import json
+    import os
+
+    os.makedirs("projects/mp2/data", exist_ok=True)
+    _save_path = f"projects/mp2/data/{county.value.lower()}_{fiscal_year.value}_towns.json"
+    with open(_save_path, "w") as _file:
+        json.dump(all_town_records, _file, indent=2)
+
+    print(f"Saved {len(all_town_records)} town records to {_save_path}")
+    return
 
 
 @app.cell(hide_code=True)
@@ -255,9 +272,11 @@ def _(mo):
     mo.md(r"""
     1) get_towns(county_name): in county name Out all the town records for that county, and the count from the API (using a loop to get all of them, since the API only gives you 100 per page). The line that I had to ask about was data["pagination"]["has_next"], which pulls the "has_next" part of a record within a record to tell the loop to stop.
 
-    2) get_year_record(dor_code, year): in  the code of the town and the number of the fiscal year. As an output, it returns the record of the indicated year in the given town (value, rate, bill), or Noneif the town does not have any data for that year. The line that I had to trace was the for year_record in data["years"]: loop, which simply iterates over every record in the years list until the required year is found.
+    2) get_year_record(dor_code, year): in the code of the town and the number of the fiscal year. As an output, it returns the record of the indicated year in the given town (value, rate, bill), or None if the town does not have any data for that year. The line that I had to trace was the for year_record in data["years"]: loop, which simply iterates over every record in the years list until the required year is found.
 
-    Change I'll try: decreasing the budget to $500,000 instead of $700,000, leaving the rest as default. The result I expect: a lower number of towns that would pass the test, since it's now harder to stay under the 700 thousand threshold, hence, a shorter list, but again, in cheapest-first order, with Malden on the top for having the lowest taxes. What happens: (we can run it and see the actual figures - I'm available for that task right now, if needed.)
+    Change I'll try: decreasing the budget to $500,000 instead of $700,000, leaving the rest as default. The result I expect: a lower number of towns that would pass the test, since it's now harder to stay under the threshold, hence a shorter list, but again in cheapest-first order, with Malden on top for having the lowest taxes.
+
+    What happened: I changed budget_dollars to 500000 in the Inputs cell and reran the notebook. The list shrank from 12 towns to 4 (Malden, Everett, Ashby, Townsend), still sorted cheapest bill first, and Malden stayed on top at $4,952, exactly as I predicted. The other 8 towns that passed before, like Waltham and Dracut, dropped out because their average home value was above $500,000, even though their bills were still under the $8,000 limit. This matched my prediction.
     """)
     return
 

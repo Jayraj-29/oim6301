@@ -1,0 +1,380 @@
+[
+  {
+    "name": "Acton",
+    "dor_code": "002",
+    "value": 937779,
+    "rate": 16.23,
+    "bill": 15220
+  },
+  {
+    "name": "Arlington",
+    "dor_code": "010",
+    "value": 1119722,
+    "rate": 10.67,
+    "bill": 11947
+  },
+  {
+    "name": "Ashby",
+    "dor_code": "012",
+    "value": 394983,
+    "rate": 15.76,
+    "bill": 6225
+  },
+  {
+    "name": "Ashland",
+    "dor_code": "014",
+    "value": 737364,
+    "rate": 12.71,
+    "bill": 9372
+  },
+  {
+    "name": "Ayer",
+    "dor_code": "019",
+    "value": 571644,
+    "rate": 11.59,
+    "bill": 6625
+  },
+  {
+    "name": "Bedford",
+    "dor_code": "023",
+    "value": 1039668,
+    "rate": 12.49,
+    "bill": 12985
+  },
+  {
+    "name": "Belmont",
+    "dor_code": "026",
+    "value": 1701064,
+    "rate": 11.51,
+    "bill": 19579
+  },
+  {
+    "name": "Billerica",
+    "dor_code": "031",
+    "value": 644586,
+    "rate": 11.61,
+    "bill": 7484
+  },
+  {
+    "name": "Boxborough",
+    "dor_code": "037",
+    "value": 933829,
+    "rate": 15.39,
+    "bill": 14372
+  },
+  {
+    "name": "Burlington",
+    "dor_code": "048",
+    "value": 820280,
+    "rate": 8.69,
+    "bill": 7128
+  },
+  {
+    "name": "Cambridge",
+    "dor_code": "049",
+    "value": 2050959,
+    "rate": 6.67,
+    "bill": 13680
+  },
+  {
+    "name": "Carlisle",
+    "dor_code": "051",
+    "value": 1355604,
+    "rate": 12.82,
+    "bill": 17379
+  },
+  {
+    "name": "Chelmsford",
+    "dor_code": "056",
+    "value": 694695,
+    "rate": 13.27,
+    "bill": 9219
+  },
+  {
+    "name": "Concord",
+    "dor_code": "067",
+    "value": 1572184,
+    "rate": 13.05,
+    "bill": 20517
+  },
+  {
+    "name": "Dracut",
+    "dor_code": "079",
+    "value": 593296,
+    "rate": 9.67,
+    "bill": 5737
+  },
+  {
+    "name": "Dunstable",
+    "dor_code": "081",
+    "value": 745497,
+    "rate": 13.39,
+    "bill": 9982
+  },
+  {
+    "name": "Everett",
+    "dor_code": "093",
+    "value": 466504,
+    "rate": 12.62,
+    "bill": 5887
+  },
+  {
+    "name": "Framingham",
+    "dor_code": "100",
+    "value": 681423,
+    "rate": 11.83,
+    "bill": 8061
+  },
+  {
+    "name": "Groton",
+    "dor_code": "115",
+    "value": 761388,
+    "rate": 14.78,
+    "bill": 11253
+  },
+  {
+    "name": "Holliston",
+    "dor_code": "136",
+    "value": 739382,
+    "rate": 14.29,
+    "bill": 10566
+  },
+  {
+    "name": "Hopkinton",
+    "dor_code": "139",
+    "value": 994431,
+    "rate": 14.1,
+    "bill": 14021
+  },
+  {
+    "name": "Hudson",
+    "dor_code": "141",
+    "value": 609924,
+    "rate": 14.14,
+    "bill": 8624
+  },
+  {
+    "name": "Lexington",
+    "dor_code": "155",
+    "value": 1656734,
+    "rate": 12.31,
+    "bill": 20394
+  },
+  {
+    "name": "Lincoln",
+    "dor_code": "157",
+    "value": 1684669,
+    "rate": 12.31,
+    "bill": 20738
+  },
+  {
+    "name": "Littleton",
+    "dor_code": "158",
+    "value": 770356,
+    "rate": 14.02,
+    "bill": 10800
+  },
+  {
+    "name": "Lowell",
+    "dor_code": "160",
+    "value": 514854,
+    "rate": 11.35,
+    "bill": 5844
+  },
+  {
+    "name": "Malden",
+    "dor_code": "165",
+    "value": 434420,
+    "rate": 11.4,
+    "bill": 4952
+  },
+  {
+    "name": "Marlborough",
+    "dor_code": "170",
+    "value": 611100,
+    "rate": 10.54,
+    "bill": 6441
+  },
+  {
+    "name": "Maynard",
+    "dor_code": "174",
+    "value": 606545,
+    "rate": 16.62,
+    "bill": 10081
+  },
+  {
+    "name": "Medford",
+    "dor_code": "176",
+    "value": 860609,
+    "rate": 8.63,
+    "bill": 7427
+  },
+  {
+    "name": "Melrose",
+    "dor_code": "178",
+    "value": 853264,
+    "rate": 11.47,
+    "bill": 9787
+  },
+  {
+    "name": "Natick",
+    "dor_code": "198",
+    "value": 937795,
+    "rate": 12.17,
+    "bill": 11413
+  },
+  {
+    "name": "Newton",
+    "dor_code": "207",
+    "value": 1762337,
+    "rate": 9.69,
+    "bill": 17077
+  },
+  {
+    "name": "North Reading",
+    "dor_code": "213",
+    "value": 882903,
+    "rate": 13.02,
+    "bill": 11495
+  },
+  {
+    "name": "Pepperell",
+    "dor_code": "232",
+    "value": 549948,
+    "rate": 13.78,
+    "bill": 7578
+  },
+  {
+    "name": "Reading",
+    "dor_code": "246",
+    "value": 939783,
+    "rate": 10.96,
+    "bill": 10300
+  },
+  {
+    "name": "Sherborn",
+    "dor_code": "269",
+    "value": 1278285,
+    "rate": 15.66,
+    "bill": 20018
+  },
+  {
+    "name": "Shirley",
+    "dor_code": "270",
+    "value": 523807,
+    "rate": 12.39,
+    "bill": 6490
+  },
+  {
+    "name": "Somerville",
+    "dor_code": "274",
+    "value": 853939,
+    "rate": 10.98,
+    "bill": 9376
+  },
+  {
+    "name": "Stoneham",
+    "dor_code": "284",
+    "value": 801126,
+    "rate": 10.06,
+    "bill": 8059
+  },
+  {
+    "name": "Stow",
+    "dor_code": "286",
+    "value": 789754,
+    "rate": 17.87,
+    "bill": 14113
+  },
+  {
+    "name": "Sudbury",
+    "dor_code": "288",
+    "value": 1165018,
+    "rate": 14.27,
+    "bill": 16625
+  },
+  {
+    "name": "Tewksbury",
+    "dor_code": "295",
+    "value": 685343,
+    "rate": 12.56,
+    "bill": 8608
+  },
+  {
+    "name": "Townsend",
+    "dor_code": "299",
+    "value": 469723,
+    "rate": 13.75,
+    "bill": 6459
+  },
+  {
+    "name": "Tyngsborough",
+    "dor_code": "301",
+    "value": 642029,
+    "rate": 12.99,
+    "bill": 8340
+  },
+  {
+    "name": "Wakefield",
+    "dor_code": "305",
+    "value": 820088,
+    "rate": 11.74,
+    "bill": 9628
+  },
+  {
+    "name": "Waltham",
+    "dor_code": "308",
+    "value": 502825,
+    "rate": 10.32,
+    "bill": 5189
+  },
+  {
+    "name": "Watertown",
+    "dor_code": "314",
+    "value": 663449,
+    "rate": 12.2,
+    "bill": 8094
+  },
+  {
+    "name": "Wayland",
+    "dor_code": "315",
+    "value": 1231217,
+    "rate": 14.83,
+    "bill": 18259
+  },
+  {
+    "name": "Westford",
+    "dor_code": "330",
+    "value": 852122,
+    "rate": 13.11,
+    "bill": 11171
+  },
+  {
+    "name": "Weston",
+    "dor_code": "333",
+    "value": 2418446,
+    "rate": 10.88,
+    "bill": 26313
+  },
+  {
+    "name": "Wilmington",
+    "dor_code": "342",
+    "value": 759032,
+    "rate": 11.41,
+    "bill": 8661
+  },
+  {
+    "name": "Winchester",
+    "dor_code": "344",
+    "value": 1649138,
+    "rate": 11.08,
+    "bill": 18272
+  },
+  {
+    "name": "Woburn",
+    "dor_code": "347",
+    "value": 738200,
+    "rate": 9.15,
+    "bill": 6755
+  }
+]
