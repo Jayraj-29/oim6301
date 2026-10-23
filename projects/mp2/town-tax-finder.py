@@ -16,8 +16,9 @@ app = marimo.App(width="medium", sql_output="polars")
 @app.cell
 def _():
     import marimo as mo
+    import requests
 
-    return (mo,)
+    return mo, requests
 
 
 @app.cell(hide_code=True)
@@ -30,7 +31,7 @@ def _(mo):
     return
 
 
-@app.cell(hide_code=True)
+@app.cell
 def _(mo):
     mo.md(r"""
     ## 1. The Question
@@ -92,6 +93,49 @@ def _(mo):
     return
 
 
+@app.cell
+def _(mo):
+    base_url = "https://oim.zhili.dev/ma"
+    county = mo.ui.text(value="Middlesex", label="County")
+    budget_dollars = mo.ui.number(value=700000, label="Budget ($)")
+    tax_limit_dollars = mo.ui.number(value=8000, label="Max tax bill ($/year)")
+    fiscal_year = mo.ui.number(value=2026, label="Fiscal year")
+
+    mo.vstack([county, budget_dollars, tax_limit_dollars, fiscal_year])
+    return base_url, budget_dollars, county, fiscal_year, tax_limit_dollars
+
+
+@app.cell
+def _(base_url, requests):
+    def get_towns(county_name):
+        """Given a county name, return a list of every town record in it."""
+        towns = []
+        page = 1
+        while True:
+            response = requests.get(
+                f"{base_url}/towns",
+                params={"county": county_name, "page": page, "per_page": 100},
+            )
+            data = response.json()
+            towns = towns + data["items"]
+            if not data["pagination"]["has_next"]:
+                break
+            page = page + 1
+        return towns, data["pagination"]["total"]
+
+
+    def get_year_record(dor_code, year):
+        """Given a town code and a fiscal year, return that year's record (value, rate, bill), or None if missing."""
+        response = requests.get(f"{base_url}/towns/{dor_code}/history")
+        data = response.json()
+        for year_record in data["years"]:
+            if year_record["fiscal_year"] == year:
+                return year_record
+        return None
+
+    return get_towns, get_year_record
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -100,6 +144,42 @@ def _(mo):
     Your functions, and the code that uses them.
     """)
     return
+
+
+@app.cell
+def _(
+    budget_dollars,
+    county,
+    fiscal_year,
+    get_towns,
+    get_year_record,
+    tax_limit_dollars,
+):
+    def get_bill(town_record):
+        """Return just the bill field of a town record, used for sorting."""
+        return town_record["bill"]
+
+
+    all_towns, total_towns = get_towns(county.value)
+
+    passing_towns = []
+    for _town in all_towns:
+        _record = get_year_record(_town["dor_code"], fiscal_year.value)
+        if _record is None:
+            continue
+        if _record["average_single_family_value_dollars"] <= budget_dollars.value and _record["average_single_family_bill_dollars"] < tax_limit_dollars.value:
+            passing_towns.append({
+                "name": _town["name"],
+                "dor_code": _town["dor_code"],
+                "value": _record["average_single_family_value_dollars"],
+                "rate": _record["residential_rate_per_thousand"],
+                "bill": _record["average_single_family_bill_dollars"],
+            })
+
+    passing_towns_sorted = sorted(passing_towns, key=get_bill)
+
+    len(all_towns), total_towns, len(passing_towns_sorted)
+    return (passing_towns_sorted,)
 
 
 @app.cell(hide_code=True)
@@ -113,7 +193,13 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(budget_dollars, county, passing_towns_sorted, tax_limit_dollars):
+    print(f"{'Town':<20}{'Value ($)':>12}{'Rate':>8}{'Bill ($)':>10}")
+    for _passing_town in passing_towns_sorted:
+        print(f"{_passing_town['name']:<20}{_passing_town['value']:>12,}{_passing_town['rate']:>8.2f}{_passing_town['bill']:>10,}")
+
+    print()
+    print(f"In {county.value} County, {len(passing_towns_sorted)} towns have an average home at or under ${budget_dollars.value:,} and an average tax bill under ${tax_limit_dollars.value:,}, the cheapest being {passing_towns_sorted[0]['name']} at ${passing_towns_sorted[0]['bill']:,} per year.")
     return
 
 
@@ -128,7 +214,11 @@ def _(mo):
 
 
 @app.cell
-def _():
+def _(passing_towns_sorted):
+    print(f"{'Town':<20}{'Bill from API':>16}{'Value x Rate / 1000':>22}")
+    for _checked_town in passing_towns_sorted:
+        _computed_bill = _checked_town["value"] * _checked_town["rate"] / 1000
+        print(f"{_checked_town['name']:<20}{_checked_town['bill']:>16,}{_computed_bill:>22,.0f}")
     return
 
 
@@ -145,7 +235,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
- 
+    The agent first wrote the sort step as a lambda (sorted(passing_towns, key=lambda t: t["bill"])). I had not learned lambda at this point, so I had it rewritten as a named function, get_bill(town_record), which simply returns the bill field, and to use the key = get_bill instead. I knew to ask for this because lambda is not something we were taught in class, and the named function accomplishes the same thing that the lambda did in an equally understandable manner, from my knowledge of what it does.
     """)
     return
 
@@ -163,7 +253,11 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
- 
+    1) get_towns(county_name): in county name Out all the town records for that county, and the count from the API (using a loop to get all of them, since the API only gives you 100 per page). The line that I had to ask about was data["pagination"]["has_next"], which pulls the "has_next" part of a record within a record to tell the loop to stop.
+
+    2) get_year_record(dor_code, year): in  the code of the town and the number of the fiscal year. As an output, it returns the record of the indicated year in the given town (value, rate, bill), or Noneif the town does not have any data for that year. The line that I had to trace was the for year_record in data["years"]: loop, which simply iterates over every record in the years list until the required year is found.
+
+    Change I'll try: decreasing the budget to $500,000 instead of $700,000, leaving the rest as default. The result I expect: a lower number of towns that would pass the test, since it's now harder to stay under the 700 thousand threshold, hence, a shorter list, but again, in cheapest-first order, with Malden on the top for having the lowest taxes. What happens: (we can run it and see the actual figures - I'm available for that task right now, if needed.)
     """)
     return
 
@@ -178,10 +272,58 @@ def _(mo):
     return
 
 
+@app.cell
+def _(base_url, passing_towns_sorted, requests):
+    # Pull the full history for the 3 towns with the lowest bill, and keep only the last 10 fiscal years
+    top_three = passing_towns_sorted[0:3]
+
+    bill_history = []
+    skipped_rows = 0
+    for _top_town in top_three:
+        _response = requests.get(f"{base_url}/towns/{_top_town['dor_code']}/history")
+        _data = _response.json()
+        _recent_years = _data["years"][-10:]
+        for _year_record in _recent_years:
+            if _year_record["average_single_family_bill_dollars"] is None:
+                skipped_rows = skipped_rows + 1
+                continue
+            bill_history.append({
+                "name": _top_town["name"],
+                "year": _year_record["fiscal_year"],
+                "bill": _year_record["average_single_family_bill_dollars"],
+            })
+
+    print(f"{'Town':<15}{'Year':>8}{'Bill ($)':>12}")
+    for _row in bill_history:
+        print(f"{_row['name']:<15}{_row['year']:>8}{_row['bill']:>12,}")
+
+    print()
+    print(f"Skipped {skipped_rows} year(s) with no bill on record.")
+    return (bill_history,)
+
+
+@app.cell
+def _(bill_history):
+    import altair as alt
+
+    chart = alt.Chart(alt.Data(values=bill_history)).mark_line(point=True).encode(
+        x=alt.X("year:O", title="Fiscal Year"),
+        y=alt.Y("bill:Q", title="Average Bill ($)"),
+        color=alt.Color("name:N", title="Town"),
+        tooltip=["name:N", "year:O", "bill:Q"],
+    ).properties(
+        title="10-Year Bill History for the 3 Cheapest Towns",
+        width=500,
+        height=300,
+    )
+    chart
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
- 
+    For the 3 towns with the cheapest bill on my list (Malden, Waltham, Dracut), I pulled their last 10 fiscal years of history and charted the bill over time, two cells above this one. Dracut's bill has climbed steadily every year. Malden and Waltham are missing several years of bill data (10 rows skipped in total, reported in the cell's output), but in the years they do have, Waltham's bill dipped slightly before climbing again, while Malden rose steadily. None of the three ever came close to the $8,000 limit in the last decade, so the couple's budget has some room before these towns would price them out.
     """)
     return
 
@@ -199,7 +341,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
- 
+    Outside the class it took me 2 hrs to finish my project
     """)
     return
 
