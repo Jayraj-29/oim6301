@@ -141,6 +141,9 @@ def _(csv, ma_towns, mo):
     ma_towns_csv = mo.notebook_dir().parent / "data" / "ma-towns.csv"
     ma_towns_csv.parent.mkdir(exist_ok=True)
 
+    if ma_towns_csv.exists():
+        ma_towns_csv.unlink()
+
     with open(ma_towns_csv, "w", newline="", encoding="utf-8") as _file:
         _writer = csv.DictWriter(_file, fieldnames=csv_columns, extrasaction="ignore")
         _writer.writeheader()
@@ -210,6 +213,52 @@ def _(towns_from_file):
             else:
                 county_counts[county] = 1
     county_counts
+    return (county_counts,)
+
+
+@app.cell
+def _(county_counts):
+    def _():
+        total_million_dollar_towns = 0
+        for county in county_counts:
+            total_million_dollar_towns += county_counts[county]
+        return total_million_dollar_towns
+
+
+    _()
+    return
+
+
+@app.cell
+def _(county_counts):
+    def _():
+        best_county = None
+        best_count = 0 
+        for county in county_counts:
+            if county_counts[county] > best_count:
+                best_county = county
+                best_count = county_counts[county]
+        return best_county, best_count
+
+
+    _()
+    return
+
+
+@app.cell
+def _(towns_from_file):
+    def _():
+        smallest_town = towns_from_file[0]
+        largest_town = towns_from_file[0]
+        for town in towns_from_file:
+            if int(town["population"]) < int(smallest_town["population"]):
+                smallest_town = town
+            if int(town["population"]) > int(largest_town["population"]):
+                largest_town = town
+        return smallest_town["name"], smallest_town["population"], largest_town["name"], largest_town["population"]
+
+
+    _()
     return
 
 
@@ -275,7 +324,7 @@ def _(mo):
 @app.cell
 def _(pl, town_table):
     (
-        town_table.filter(pl.col("average_single_family_value_dollars") >= 1_000_000)
+        town_table.filter(pl.col("average_single_family_value_dollars") >= 2_000_000)
         .group_by("county")
         .agg(pl.len().alias("towns"))
         .sort("towns", descending=True)
@@ -333,6 +382,35 @@ def _(mo):
     return
 
 
+@app.cell
+def _(pl, town_table):
+    file_county_counts = (
+        town_table.group_by("county")
+        .agg(pl.len().alias("towns"))
+        .sort("county")
+    )
+    file_county_counts
+    return
+
+
+@app.cell
+def _(pl, town_table):
+    top_bill_towns = (
+        town_table.filter(pl.col("population") > 50_000)
+        .sort("average_single_family_bill_dollars", descending=True)
+        .head(5)
+    )
+    top_bill_towns
+    return
+
+
+@app.cell
+def _(ma_counties, pl):
+    server_county_counts = pl.DataFrame(ma_counties).select("name", "towns").sort("name")
+    server_county_counts
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -351,7 +429,7 @@ def _(mo, town_table):
         f"""
         SELECT county, COUNT(*) AS towns
         FROM town_table
-        WHERE average_single_family_value_dollars >= 1000000
+        WHERE average_single_family_value_dollars >= 2000000
         GROUP BY county
         ORDER BY towns DESC
         """
@@ -376,6 +454,25 @@ def _(mo):
 
     **Going further.** Write a SQL query of your own on `town_table`, and check its answer in polars.
     """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    Raising the bar from $1,000,000 to $2,000,000 will only decrease each county's count, never increase. Each town that clears $2,000,000 already clears $1,000,000, so no county can gain towns. Counties that have their million dollar towns valued between $1,000,000 and $2,000,000 will lose some or all of them; counties that have no towns in this range will remain the same.
+    """)
+    return
+
+
+@app.cell
+def _(pl, town_table):
+    (
+        town_table.filter(pl.col("average_single_family_value_dollars") >= 2000000)
+        .group_by("county")
+        .agg(pl.len().alias("towns"))
+        .sort("towns", descending=True)
+    )
     return
 
 
@@ -429,6 +526,29 @@ def _(mo):
 
     **Going further.** Color the bars or dots by a column with `color=`, and explain what the colors add.
     """)
+    return
+
+
+@app.cell
+def _(pl, town_table):
+    average_bill_by_county = (
+        town_table.group_by("county")
+        .agg(pl.col("average_single_family_bill_dollars").mean().alias("average_bill"))
+        .sort("average_bill", descending=True)
+    )
+    average_bill_by_county
+    return (average_bill_by_county,)
+
+
+@app.cell
+def _(alt, average_bill_by_county, mo):
+    average_bill_chart = mo.ui.altair_chart(
+        average_bill_by_county.plot.bar(
+            y=alt.Y("county", sort="-x", title="County"),
+            x=alt.X("average_bill", title="Average single-family tax bill ($)"),
+        ).properties(title="Average single-family tax bill by county")
+    )
+    average_bill_chart
     return
 
 

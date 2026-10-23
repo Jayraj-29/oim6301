@@ -132,17 +132,17 @@ def _(freight_charges):
 def _():
     # Your own example of each name.
 
-    # 1. value:42
-    # 2. name and assignment: age = 30
-    # 3. type: type("hello")
-    # 4. list: colours = ["red", "green"]
-    # 5. index: colour[0]
-    # 6. loop: for colour in colours: print(color)
-    # 7. condition: if age >=18 print("adlut")
-    # 8. f-string:  f"My age is {age}"
-    # 9. many into one number: sum([1, 2, 3])
-    # 10. function and argument: sorted(colors, reverse=True)
-    # 11. error: colors[10]
+    # 1. value:
+    # 2. name and assignment:
+    # 3. type:
+    # 4. list:
+    # 5. index:
+    # 6. loop:
+    # 7. condition:
+    # 8. f-string:
+    # 9. many into one number:
+    # 10. function and argument:
+    # 11. error:
     return
 
 
@@ -370,17 +370,7 @@ def _(statuses):
 
 
 @app.cell
-def _(statuses):
-    def _():
-        shipped_count = 0
-        for status in statuses:
-            if status == "shipped":
-                shipped_count = shipped_count + 1
-        percent_shipped = shipped_count / len(statuses) * 100
-        return percent_shipped
-
-
-    _()
+def _():
     return
 
 
@@ -521,19 +511,6 @@ def _(mo):
     return
 
 
-@app.cell
-def _(sale_prices):
-    def _():
-        discounted = []
-        for price in sale_prices:
-            discounted.append(price*0.9)
-        return discounted
-
-
-    _()
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -628,6 +605,7 @@ def _(mo):
 def _(charges):
     charges[-1]
     charges[len(charges)-1]
+
     return
 
 
@@ -838,43 +816,6 @@ def _(mo):
     return
 
 
-@app.cell
-def _(orders):
-    total_freight = 0
-    for order in orders:
-        total_freight = total_freight + order["Freight"]
-        total_freight
-    return
-
-
-@app.cell
-def _(orders):
-    def _():
-        not_shipped = 0
-        for order in orders :
-              if order["ShippedDate"] is None:
-                not_shipped = not_shipped + 1
-        return not_shipped
-
-
-    _()
-    return
-
-
-@app.cell
-def _(orders):
-    def _():
-        largest_so_far = orders[0]
-        for order in orders:
-            if order["Freight"] > largest_so_far["Freight"]:
-                largest_so_far = order
-        return largest_so_far
-
-
-    _()
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -892,29 +833,11 @@ def _(mo):
     return
 
 
-@app.cell
-def _(orders):
-    def _():
-        for order in orders:
-            if order["ShippedDate"] is None:
-                print(order["OrderID"], order["OrderDate"])
-
-
-
-    return
-
-
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    One row is one customer order which is a single purchase made on one data with its own shipping details and freight cost
-    """)
-    return
+    *One row is ...*
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
     *(Replace this line with your own sentence. If this cell shows you code instead of
     text, use the cell menu to turn it into a markdown cell.)*
     """)
@@ -954,44 +877,6 @@ def _():
         {"Symbol": "TSLA", "Shares": 150, "Price": 255.70},
     ]
     portfolio
-    return (portfolio,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    To get the total portfolio value, multiply the individual share prices by the total shares, and then add up all six of those amounts to get the total cost of the portfolio.
-    """)
-    return
-
-
-@app.cell
-def _(portfolio):
-    total_cost = 0
-    for holding in portfolio:
-        total_cost = total_cost + holding["Shares"] * holding["Price"]
-    total_cost
-    return
-
-
-@app.cell
-def _():
-    grocery_list = [
-        {"Item": "Rice", "Quantity": 3, "UnitPrice": 2.50},
-        {"Item": "Milk", "Quantity": 2, "UnitPrice": 1.80},
-        {"Item": "Eggs", "Quantity": 12, "UnitPrice": 0.25},
-        {"Item": "Bread", "Quantity": 1, "UnitPrice": 3.20},
-    ]
-    grocery_list
-    return (grocery_list,)
-
-
-@app.cell
-def _(grocery_list):
-    grocery_total = 0
-    for item in grocery_list:
-        grocery_total = grocery_total + item["Quantity"] * item["UnitPrice"]
-    grocery_total
     return
 
 
@@ -1021,7 +906,7 @@ def _(mo):
 
 @app.cell
 def _(mo):
-    _lines = ["name, shares, price"]
+    _lines = ["name,shares,price"]
     for _holding in [
         ("AAPL", 100, 173.93), ("MSFT", 50, 319.53), ("GOOG", 80, 131.36),
         ("AMZN", 200, 129.33), ("NVDA", 20, 410.17), ("TSLA", 150, 255.70),

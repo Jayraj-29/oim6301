@@ -461,6 +461,11 @@ def _(mo):
     return
 
 
+@app.cell
+def _():
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -472,6 +477,17 @@ def _(mo):
     2. Every customer who has ordered from you this year, each once
     3. The units sold of each product, looked up by product name
     4. One shipment's carrier, tracking number and ship date, which must not change once recorded
+    """)
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    1)A list — many order lines, and they can be added, removed, or reordered.
+    2)A set — each customer counted once, order doesn't matter.
+    3)A dictionary — looked up by product name (the key), and the count can change.
+    4)A tuple — one thing with named parts that must never change.
     """)
     return
 
@@ -494,6 +510,18 @@ def _(mo):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    For this specific situation, working with a list of dictionaries is much better than a list of tuples
+    Reasons:
+    1)Readability: correct, and it's the best possible reason for a beginner-focused project. In fact, it's a major plus.
+    2) Maintenance/flexibility: correct, but it's software engineering speak for future-proofing you haven't had to think about that yet, but it's still a good sign that you recognize why keys matter. You don't need to go into quite so much detail, though, for a course at this level.
+    3)Error prevention: correct, and it's similar to what was said in the previous point. The KeyError raised by trying to access a nonexistent stock ticker in the dictionary would be far more obvious than an incorrect index in a tuple would be.
+    """)
+    return
+
+
 @app.cell
 def _():
     holdings = [
@@ -505,6 +533,15 @@ def _():
         ("TSLA", 150, 255.70),
     ]
     holdings
+    return (holdings,)
+
+
+@app.cell
+def _(holdings):
+    total_cost = 0
+    for _symbol, _shares, _price in holdings:
+        total_cost = total_cost + _shares * _price
+    total_cost
     return
 
 
@@ -708,10 +745,8 @@ def _(mo):
 @app.cell
 def _(babson_weather):
     wind_speed = babson_weather["current"]["wind_speed_10m"]
-    wind_unit = babson_weather['current_units']
-    ["wind_speed_10m"]
+    wind_unit = babson_weather["current_units"]["wind_speed_10m"]
     f"the wind speed is {wind_speed} {wind_unit}"
-
     return
 
 
@@ -723,12 +758,44 @@ def _(mo):
     return
 
 
+@app.cell
+def _(requests):
+    wellesley_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Wellesley&count=1",
+        timeout=10,
+    )
+    wellesley_results = wellesley_reply.json()["results"]
+    wellesley_first = wellesley_results[0]
+    wellesley_first["latitude"], wellesley_first["longitude"], wellesley_first["admin1"]
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     **G · The first result.** Search for `Babson Park` and look at the first place in `results`. In the written answers cell, answer under **G**: which state is it in, and what would code that always takes `[0]` have done with it?
 
     **Going further.** Use F's coordinates to ask for Wellesley's current temperature. Build the address with an f-string, so that changing the town changes the forecast.
+    """)
+    return
+
+
+@app.cell
+def _(requests):
+    babson_park_reply = requests.get(
+        "https://geocoding-api.open-meteo.com/v1/search?name=Babson Park&count=1",
+        timeout=10,
+    )
+    babson_park_results = babson_park_reply.json()["results"]
+    babson_park_first = babson_park_results[0]
+    babson_park_first
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    The first result is in Florida. Code that always takes [0] would have silently picked the wrong Babson Park — the Florida one instead of the Massachusetts one — with no error to warn you.
     """)
     return
 

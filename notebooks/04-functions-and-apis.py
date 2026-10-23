@@ -122,33 +122,19 @@ def _(mo):
     return
 
 
-app._unparsable_cell(
-    r"""
-    def compute_cost(portfolio)
-        cost_so_far
-    """,
-    name="_"
-)
-
-
-app._unparsable_cell(
+@app.function
+def compute_cost(portfolio):
+    """ Computes the total cost of a portfolio.
+        portfolio: list of tuples (symbol, shares, price)
     """
-    def compute_cost(portfolio):
-        \"\"\" Computes the total cost of a portfolio.
-            portfolio:list of tuples (symbols,)
-
-        \"\"\"
-        cost_so_far = 0
-        for symbol, shares, price in portfolio:
-            cost_so_far = cost_so_far + shares * price
-        return round(cost_so_far, 2)\"2 returns 2 decimal values\"
-    """,
-    name="_"
-)
+    cost_so_far = 0
+    for symbol, shares, price in portfolio:
+        cost_so_far = cost_so_far + shares * price
+    return round(cost_so_far, 2)
 
 
 @app.cell
-def _(compute_cost, holdings):
+def _(holdings):
     compute_cost(holdings)
     return
 
@@ -173,7 +159,7 @@ def _():
 
 
 @app.cell
-def _(compute_cost, retirement_holdings):
+def _(retirement_holdings):
     compute_cost(retirement_holdings)
     return
 
@@ -203,12 +189,77 @@ def _(mo):
     return
 
 
+@app.function
+def count_shares(portfolio):
+    total = 0
+    for symbol, shares, price in portfolio:
+        total = total + shares
+    return total
+
+
+@app.cell
+def _(holdings):
+    count_shares(holdings)
+    return
+
+
+@app.cell
+def _(retirement_holdings):
+    count_shares(retirement_holdings)
+    return
+
+
+@app.function
+def find_largest(portfolio):
+    biggest_symbol = portfolio[0][0]
+    biggest_cost = portfolio[0][1] * portfolio[0][2]
+    for symbol, shares, price in portfolio:
+        cost = shares * price
+        if cost > biggest_cost:
+            biggest_symbol = symbol
+            biggest_cost = cost
+    return biggest_symbol, round(biggest_cost, 2)
+
+
+@app.cell
+def _(holdings):
+    find_largest(holdings)
+    return
+
+
+@app.cell
+def _(retirement_holdings):
+    find_largest(retirement_holdings)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
     ## ✏️ B · Without `return`
 
     Copy `count_shares` into a new cell under a new name, and put `print(...)` where the `return` was. Call it and keep the result in a name. In a markdown cell under it, answer: what does that name hold, and what could the next cell do with it?
+    """)
+    return
+
+
+@app.cell
+def _(holdings):
+    def print_shares(portfolio):
+        total = 0
+        for symbol, shares, price in portfolio:
+            total = total + shares
+        print(total)
+
+    result = print_shares(holdings)
+
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    The result will be None, since print_shares does not return anything; it just prints to the console. So, when the next cell tries to calculate something like result + 100, there will be an error, since there is nothing to add to the result. That is why return is so important, since it actually returns the result of the calculation, while print just outputs it to the console.
     """)
     return
 
@@ -348,6 +399,36 @@ def _(mo):
     return
 
 
+@app.cell
+def _(requests):
+    def get_temperature(town):
+        geo_reply = requests.get(
+            "https://geocoding-api.open-meteo.com/v1/search",
+            params={"name": town, "count": 1},
+            timeout=10,
+        )
+        place = geo_reply.json()["results"][0]
+        weather_reply = requests.get(
+            "https://api.open-meteo.com/v1/forecast",
+            params={
+                "latitude": place["latitude"],
+                "longitude": place["longitude"],
+                "current": "temperature_2m",
+                "temperature_unit": "fahrenheit",
+            },
+            timeout=10,
+        )
+        return weather_reply.json()["current"]["temperature_2m"]
+
+    return (get_temperature,)
+
+
+@app.cell
+def _(get_temperature):
+    get_temperature("Wellesley")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -357,6 +438,22 @@ def _(mo):
 
     *Check yourself: Dover, Wellesley, Cohasset, Needham, Westwood.*
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    top_income_reply = requests.get(
+        "https://oim.zhili.dev/ma/towns",
+        params={"county": "Norfolk", "sort": "income", "order": "desc", "per_page": 5},
+        timeout=10,
+    )
+    top_income_towns = top_income_reply.json()["items"]
+
+    top_income_names = []
+    for town in top_income_towns:
+        top_income_names.append(town["name"])
+    top_income_names
     return
 
 
@@ -373,6 +470,29 @@ def _(mo):
 
     **Going further.** Write `town_history(name)`, which takes a town's name, makes both requests, and returns the history.
     """)
+    return
+
+
+@app.cell
+def _(requests):
+    wellesley_reply = requests.get(
+        "https://oim.zhili.dev/ma/towns",
+        params={"name": "Wellesley"},
+        timeout=10,
+    )
+    wellesley_dor_code = wellesley_reply.json()["items"][0]["dor_code"]
+    wellesley_dor_code
+    return (wellesley_dor_code,)
+
+
+@app.cell
+def _(requests, wellesley_dor_code):
+    history_reply = requests.get(
+        f"https://oim.zhili.dev/ma/towns/{wellesley_dor_code}/history",
+        params={"from_year": 2026, "to_year": 2026},
+        timeout=10,
+    )
+    history_reply.json()
     return
 
 
@@ -457,6 +577,26 @@ def _(mo):
     return
 
 
+@app.cell
+def _(get_page):
+    def get_all_towns():
+        first_page = get_page(1)
+        pages = first_page["pagination"]["pages"]
+        all_towns = first_page["items"]
+        for page_number in range(2, pages + 1):
+            all_towns = all_towns + get_page(page_number)["items"]
+        return all_towns
+
+    return (get_all_towns,)
+
+
+@app.cell
+def _(get_all_towns):
+    all_towns = get_all_towns()
+    len(all_towns), all_towns[0]["name"], all_towns[-1]["name"]
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
@@ -508,11 +648,11 @@ def _(mo):
 
 @app.cell
 def _(requests):
-    HEY = "<your-message>"
+    HEY = "Wellesley's average single-family tax bill is $20,551 (FY2026)."
 
     board_reply = requests.post(
         "https://oim.zhili.dev/message",
-        headers={"x-token": "<your-github-username>"},
+        headers={"x-token": "Jayraj-29"},
         json={"message": HEY},
         timeout=10,
     )
@@ -520,18 +660,24 @@ def _(requests):
     return
 
 
-app._unparsable_cell(
-    r"""
-    board_reply = requests.post(
+@app.cell
+def _(requests):
+    board_reply_no_header = requests.post(
         "https://oim.zhili.dev/message",
-        headers={"x-token": "<your-github-username>"},
-        json={"message": "<your-message>"},
+        json={"message": "<hey>"},
         timeout=10,
+    )
+    board_reply_no_header.status_code, board_reply_no_header.json()
+    return
 
-    board_reply.status_code, board_reply.json()
-    """,
-    name="_"
-)
+
+@app.cell
+def _(mo):
+    mo.md(r"""
+    Without the `x-token` header, the server answered **401**, with the message `"Missing x-token header"`. It refused to accept the post at all, rather than writing it anonymously.
+    The server needs to know who sent a message so it can show the right name next to each line on the board, so one student cannot write a message and have it attributed to someone else, and so it can tell who to blame (or credit) if a message needs to be removed later.
+    """)
+    return
 
 
 @app.cell(hide_code=True)
