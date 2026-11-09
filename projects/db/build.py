@@ -63,12 +63,12 @@ def _(mo):
     mo.md(r"""
     ## 2. The Data
 
-    `make_data.py` writes one CSV file per table into `data/`, with a fixed random seed so it writes the same files every run: about 25 people, 14 projects, 276 tasks and 160 expenses, covering the 12 months up to 2026-11-08.
+    `make_data.py` writes one CSV file per table into `data/`, with a fixed random seed so it writes the same files every run: about 25 people, 14 projects, 263 tasks and 160 expenses, covering the 12 months up to 2026-11-08.
 
     **Two rows break a rule on purpose**, for business question 7 ("every task checked against the rule that its assignee works on its project"). No `CHECK` can hold that rule, because it compares `tasks` against `assignments` across tables; question 7 is how the database is checked instead. Running `make_data.py` prints which two:
 
-    - task 151 (project 8) assigned to person 14, who is not on project 8's team
-    - task 130 (project 7) assigned to person 6, who is not on project 7's team
+    - task 203 (project 11) assigned to person 7, who is not on project 11's team
+    - task 78 (project 4) assigned to person 1, who is not on project 4's team
 
     **Three projects get no expenses at all** on purpose, for business question 5.
 
@@ -89,11 +89,11 @@ def _(mo, pl):
     tasks_rows = pl.read_csv(_data_dir / "tasks.csv", try_parse_dates=True, null_values=[""])
     expenses_rows = pl.read_csv(_data_dir / "expenses.csv", try_parse_dates=True, null_values=[""])
     people_rows.shape, projects_rows.shape, assignments_rows.shape, tasks_rows.shape, expenses_rows.shape
-    return assignments_rows, expenses_rows, people_rows, projects_rows, tasks_rows
+    return expenses_rows, people_rows
 
 
 @app.cell
-def _(assignments_rows, duckdb, expenses_rows, mo, people_rows, projects_rows, tasks_rows):
+def _(duckdb, mo, people_rows):
     _file = mo.notebook_dir() / "database.duckdb"
     _file.unlink(missing_ok=True)
 
@@ -202,7 +202,7 @@ def _(mo):
     mo.md(r"""
     ## 3. A Look at the Data
 
-    The first version of `make_data.py` drew every expense category's amount from the same $80-$55,000 range, which made a business trip look as expensive as a month of GPU training. The chart below is after the fix: each category now has its own range, so GPU cloud and data labeling average far more than software and travel, which is how an AI startup's bills really look.
+    The first version of `make_data.py` drew every expense category's amount from the same \$80-\$55,000 range, which made a business trip look as expensive as a month of GPU training. The chart below is after the fix: each category now has its own range, so GPU cloud and data labeling average far more than software and travel, which is how an AI startup's bills really look.
     """)
     return
 
@@ -284,7 +284,9 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""*Check yourself: 25, one row per person `make_data.py` wrote.*""")
+    mo.md(r"""
+    *Check yourself: 25, one row per person `make_data.py` wrote.*
+    """)
     return
 
 
@@ -296,7 +298,9 @@ def _(ask):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""*Check yourself: 3, the projects `make_data.py` left out of `expenses.csv` on purpose.*""")
+    mo.md(r"""
+    *Check yourself: 3, the projects `make_data.py` left out of `expenses.csv` on purpose.*
+    """)
     return
 
 
@@ -312,7 +316,9 @@ def _(ask):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""*Check yourself: 2, the two tasks `make_data.py` reassigned on purpose to break business question 7's rule.*""")
+    mo.md(r"""
+    *Check yourself: 2, the two tasks `make_data.py` reassigned on purpose to break business question 7's rule.*
+    """)
     return
 
 

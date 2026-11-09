@@ -184,16 +184,20 @@ for project_id in project_ids:
     for _ in range(task_count):
         description = random.choice(TASK_VERBS) + " " + random.choice(TASK_NOUNS)
 
-        days_since_start = (AS_OF - project_start).days
-        if days_since_start < 1:
-            days_since_start = 1
-        created_date = project_start + timedelta(days=random.randint(0, days_since_start))
-        due_date = created_date + timedelta(days=random.randint(3, 45))
-
+        # Pick who the task goes to before picking its created_date, so a
+        # task is never created before that person's start_date.
         if random.random() < 0.8:
             assigned_to = random.choice(team)
+            earliest_create = max(project_start, people_start[assigned_to])
         else:
             assigned_to = ""
+            earliest_create = project_start
+
+        days_since_earliest = (AS_OF - earliest_create).days
+        if days_since_earliest < 1:
+            days_since_earliest = 1
+        created_date = earliest_create + timedelta(days=random.randint(0, days_since_earliest))
+        due_date = created_date + timedelta(days=random.randint(3, 45))
 
         completed_date = ""
         if due_date <= AS_OF:
