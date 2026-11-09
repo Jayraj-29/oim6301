@@ -1,0 +1,161 @@
+expense_id,project_id,expense_date,amount,category,note
+1,3,2026-08-10,958.09,software,SaaS subscription
+2,7,2025-11-09,19585.13,data labeling,Annotation guideline update
+3,13,2026-08-13,26539.21,GPU cloud,Inference hosting
+4,7,2026-05-04,1635.57,travel,Client site visit
+5,3,2026-01-04,4692.06,software,SaaS subscription
+6,1,2025-11-16,4643.11,travel,Team offsite
+7,4,2025-11-25,2467.49,data labeling,Vendor labeling batch
+8,8,2026-06-01,41248.68,GPU cloud,Model training run
+9,8,2025-12-06,4736.75,data labeling,Annotation guideline update
+10,3,2026-08-29,4093.67,software,SaaS subscription
+11,6,2026-01-20,1564.68,software,SaaS subscription
+12,4,2026-08-20,1795.89,travel,Conference trip
+13,10,2026-08-19,13735.63,data labeling,Annotation guideline update
+14,8,2026-10-17,51904.08,GPU cloud,Inference hosting
+15,7,2026-01-23,2128.32,software,Monitoring service
+16,5,2026-07-08,4575.61,travel,Client site visit
+17,4,2026-01-20,17222.05,data labeling,Quality review pass
+18,13,2026-06-09,3461.84,travel,Client site visit
+19,3,2026-04-26,1678.97,travel,Client site visit
+20,2,2026-02-13,736.29,travel,Conference trip
+21,1,2026-09-12,3394.47,software,Dev tool license
+22,1,2026-09-04,44646.48,GPU cloud,Model training run
+23,12,2026-04-27,4573.34,data labeling,Quality review pass
+24,5,2026-01-07,51669.47,GPU cloud,Model training run
+25,12,2026-11-03,4234.63,travel,Client site visit
+26,4,2026-04-01,3402.06,travel,Client site visit
+27,7,2026-04-14,3962.58,travel,Team offsite
+28,5,2026-07-04,4423.43,software,Monitoring service
+29,2,2026-05-16,5503.12,travel,Conference trip
+30,6,2026-03-01,3462.64,travel,Client site visit
+31,12,2026-09-03,5585.1,data labeling,Vendor labeling batch
+32,10,2026-04-25,1083.99,travel,Conference trip
+33,4,2026-07-21,5033.5,travel,Team offsite
+34,6,2026-10-02,4835.22,software,Dev tool license
+35,12,2026-05-07,1175.76,travel,Conference trip
+36,3,2026-02-10,11157.65,data labeling,Annotation guideline update
+37,1,2026-10-16,52094.97,GPU cloud,Model training run
+38,1,2026-09-26,9287.05,GPU cloud,Inference hosting
+39,4,2026-02-27,10004.57,GPU cloud,Extra GPU hours
+40,8,2026-10-15,3119.75,software,SaaS subscription
+41,10,2025-11-11,3029.56,travel,Team offsite
+42,7,2026-03-28,30059.14,GPU cloud,Model training run
+43,5,2026-10-19,45097.33,GPU cloud,Extra GPU hours
+44,7,2026-08-03,18401.95,data labeling,Vendor labeling batch
+45,3,2026-03-17,12585.73,data labeling,Vendor labeling batch
+46,6,2026-06-03,468.77,software,Dev tool license
+47,8,2026-10-24,4904.22,data labeling,Annotation guideline update
+48,2,2026-05-20,23479.75,GPU cloud,Model training run
+49,8,2026-02-03,2500.86,GPU cloud,Extra GPU hours
+50,2,2026-04-26,3940.46,travel,Conference trip
+51,10,2026-03-05,50715.07,GPU cloud,Extra GPU hours
+52,4,2025-12-16,470.06,travel,Conference trip
+53,5,2026-04-18,51224.62,GPU cloud,Model training run
+54,1,2026-11-07,3311.74,data labeling,Annotation guideline update
+55,7,2026-03-11,10609.86,GPU cloud,Inference hosting
+56,10,2026-04-26,5399.85,travel,Team offsite
+57,7,2026-07-22,14621.19,data labeling,Annotation guideline update
+58,12,2026-03-06,560.61,software,SaaS subscription
+59,2,2026-09-08,3863.51,software,Monitoring service
+60,7,2026-06-26,3199.88,software,SaaS subscription
+61,8,2026-05-19,11284.24,data labeling,Quality review pass
+62,7,2026-05-21,11924.56,data labeling,Annotation guideline update
+63,2,2025-12-20,3588.49,software,SaaS subscription
+64,5,2026-09-28,14377.7,data labeling,Quality review pass
+65,3,2025-12-24,2292.06,travel,Conference trip
+66,1,2026-03-26,1850.79,software,Dev tool license
+67,2,2026-06-25,4154.14,data labeling,Vendor labeling batch
+68,7,2026-08-18,6749.8,GPU cloud,Model training run
+69,2,2026-06-07,140.72,software,Dev tool license
+70,7,2026-03-12,49760.21,GPU cloud,Extra GPU hours
+71,10,2026-01-18,7924.27,data labeling,Annotation guideline update
+72,5,2025-12-10,2506.17,software,Dev tool license
+73,3,2026-07-13,2642.39,travel,Conference trip
+74,13,2026-03-14,15340.09,GPU cloud,Inference hosting
+75,12,2026-06-30,3776.68,travel,Team offsite
+76,2,2026-05-29,631.96,data labeling,Quality review pass
+77,6,2026-06-16,2753.29,travel,Conference trip
+78,10,2026-10-29,6752.97,data labeling,Quality review pass
+79,4,2026-05-30,1230.3,travel,Conference trip
+80,6,2026-07-17,3499.19,software,Monitoring service
+81,10,2026-05-28,7833.08,data labeling,Quality review pass
+82,6,2026-08-14,12589.4,GPU cloud,Extra GPU hours
+83,3,2026-11-05,26465.98,GPU cloud,Extra GPU hours
+84,4,2025-12-13,5021.43,travel,Conference trip
+85,13,2026-09-28,3095.96,travel,Team offsite
+86,5,2026-06-12,13343.93,data labeling,Quality review pass
+87,13,2026-09-10,2804.59,travel,Client site visit
+88,8,2026-10-28,3138.35,travel,Team offsite
+89,7,2026-08-09,39186.62,GPU cloud,Inference hosting
+90,10,2026-10-10,42754.56,GPU cloud,Model training run
+91,6,2026-08-23,12447.22,data labeling,Annotation guideline update
+92,7,2025-12-28,601.25,software,Dev tool license
+93,5,2026-08-20,15063.63,data labeling,Annotation guideline update
+94,10,2026-07-03,7795.33,data labeling,Quality review pass
+95,13,2026-07-13,19955.2,data labeling,Quality review pass
+96,2,2025-12-21,4609.09,software,Dev tool license
+97,2,2026-06-29,6581.86,data labeling,Quality review pass
+98,13,2026-07-09,9917.06,data labeling,Annotation guideline update
+99,2,2026-04-20,4241.23,travel,Team offsite
+100,2,2026-01-05,4066.11,software,SaaS subscription
+101,1,2026-01-31,618.06,software,Monitoring service
+102,12,2026-01-28,3901.84,data labeling,Annotation guideline update
+103,6,2026-06-03,1544.76,travel,Conference trip
+104,3,2026-05-29,13317.5,data labeling,Annotation guideline update
+105,1,2026-05-26,12047.96,data labeling,Quality review pass
+106,1,2026-11-03,5927.72,data labeling,Vendor labeling batch
+107,13,2026-08-09,7392.86,GPU cloud,Extra GPU hours
+108,3,2026-01-05,1049.61,software,Dev tool license
+109,5,2026-04-17,5802.32,travel,Team offsite
+110,10,2026-01-05,2476.76,travel,Team offsite
+111,6,2026-10-18,3117.42,software,Dev tool license
+112,12,2026-10-18,2983.63,software,Monitoring service
+113,3,2026-01-06,1253.78,software,SaaS subscription
+114,3,2026-05-25,775.48,software,Monitoring service
+115,7,2026-02-11,7982.34,data labeling,Annotation guideline update
+116,8,2026-04-04,3753.88,data labeling,Annotation guideline update
+117,3,2026-09-21,16918.71,data labeling,Quality review pass
+118,1,2026-02-15,2464.28,software,SaaS subscription
+119,7,2026-06-08,4171.24,travel,Conference trip
+120,12,2026-08-24,1170.07,travel,Conference trip
+121,1,2026-03-03,1137.55,data labeling,Quality review pass
+122,5,2026-07-19,11530.18,data labeling,Quality review pass
+123,2,2026-05-14,43080.99,GPU cloud,Inference hosting
+124,13,2026-02-27,25392.43,GPU cloud,Extra GPU hours
+125,7,2026-03-14,45993.75,GPU cloud,Extra GPU hours
+126,5,2025-12-22,15929.21,GPU cloud,Inference hosting
+127,8,2026-09-05,13123.54,GPU cloud,Model training run
+128,12,2026-06-15,3082.49,software,Monitoring service
+129,3,2025-12-08,16363.83,data labeling,Vendor labeling batch
+130,10,2026-08-10,1462.94,software,Monitoring service
+131,3,2026-08-28,1519.76,software,Monitoring service
+132,5,2026-06-06,53026.92,GPU cloud,Model training run
+133,1,2026-01-14,704.29,software,Monitoring service
+134,4,2026-03-14,6780.89,data labeling,Annotation guideline update
+135,13,2026-09-27,1024.6,travel,Conference trip
+136,5,2026-09-28,2821.55,travel,Conference trip
+137,13,2026-03-30,29327.51,GPU cloud,Inference hosting
+138,12,2026-04-24,4755.25,software,Dev tool license
+139,10,2026-06-30,6936.51,GPU cloud,Extra GPU hours
+140,12,2026-05-30,3994.74,software,SaaS subscription
+141,4,2026-04-22,3069.35,travel,Client site visit
+142,5,2026-08-24,2923.43,software,Monitoring service
+143,8,2025-12-01,3830.29,software,Monitoring service
+144,2,2026-01-27,920.58,travel,Client site visit
+145,8,2026-06-15,5952.66,travel,Client site visit
+146,4,2026-03-28,6386.38,data labeling,Annotation guideline update
+147,2,2026-10-14,485.51,software,Dev tool license
+148,3,2026-11-01,35157.03,GPU cloud,Inference hosting
+149,13,2026-11-03,13281.96,data labeling,Quality review pass
+150,2,2026-01-14,27270.76,GPU cloud,Model training run
+151,10,2025-11-12,13759.66,data labeling,Annotation guideline update
+152,1,2026-06-12,4941.72,software,SaaS subscription
+153,12,2026-05-23,1881.15,data labeling,Quality review pass
+154,2,2026-04-10,18607.63,GPU cloud,Model training run
+155,3,2026-10-20,3921.14,travel,Client site visit
+156,3,2026-09-16,31854.43,GPU cloud,Extra GPU hours
+157,3,2026-09-25,4390.11,travel,Conference trip
+158,12,2026-06-22,12513.48,data labeling,Quality review pass
+159,4,2026-01-10,9420.7,GPU cloud,Model training run
+160,10,2026-04-18,5786.84,travel,Conference trip

@@ -1,0 +1,26 @@
+person_id,first_name,last_name,work_email,title,start_date,manager_id
+1,Danielle,Johnson,danielle.johnson@babsonailabs.com,CEO,2021-01-24,
+2,Joshua,Walker,joshua.walker@babsonailabs.com,CTO,2022-07-18,
+3,Jill,Rhodes,jill.rhodes@babsonailabs.com,VP of Engineering,2024-10-14,2
+4,Patricia,Miller,patricia.miller@babsonailabs.com,VP of Product,2024-03-03,1
+5,Robert,Johnson,robert.johnson@babsonailabs.com,Engineering Manager,2024-06-19,1
+6,Jeffery,Wagner,jeffery.wagner@babsonailabs.com,Project Manager,2022-12-17,1
+7,Anthony,Gonzalez,anthony.gonzalez@babsonailabs.com,Business Analyst,2025-06-04,3
+8,Debra,Gardner,debra.gardner@babsonailabs.com,ML Engineer,2026-05-07,4
+9,Jeffrey,Lawrence,jeffrey.lawrence@babsonailabs.com,Data Engineer,2025-03-11,3
+10,Lisa,Smith,lisa.smith@babsonailabs.com,Business Analyst,2026-01-19,6
+11,Linda,Wolfe,linda.wolfe@babsonailabs.com,Data Engineer,2025-05-08,5
+12,Matthew,Moore,matthew.moore@babsonailabs.com,QA Engineer,2026-08-04,4
+13,Susan,Rogers,susan.rogers@babsonailabs.com,Designer,2025-06-04,5
+14,Christopher,Davis,christopher.davis@babsonailabs.com,Data Scientist,2026-03-04,4
+15,Melanie,Munoz,melanie.munoz@babsonailabs.com,QA Engineer,2025-08-31,3
+16,Lindsay,Blair,lindsay.blair@babsonailabs.com,ML Engineer,2025-07-17,3
+17,Amanda,Dudley,amanda.dudley@babsonailabs.com,Data Scientist,2025-08-23,5
+18,Nicholas,Arnold,nicholas.arnold@babsonailabs.com,QA Engineer,2026-06-27,6
+19,Maria,Montgomery,maria.montgomery@babsonailabs.com,Business Analyst,2026-04-05,6
+20,Michelle,Ray,michelle.ray@babsonailabs.com,ML Engineer,2025-01-22,5
+21,Janet,Williams,janet.williams@babsonailabs.com,QA Engineer,2024-11-15,5
+22,Jeremy,Roberts,jeremy.roberts@babsonailabs.com,Business Analyst,2026-01-26,3
+23,Christopher,Hall,christopher.hall@babsonailabs.com,ML Engineer,2025-12-20,5
+24,Craig,Ramirez,craig.ramirez@babsonailabs.com,ML Engineer,2025-12-15,3
+25,Cynthia,Diaz,cynthia.diaz@babsonailabs.com,Software Engineer,2025-10-30,6

@@ -1,0 +1,52 @@
+project_id,person_id,role,hours_per_week,joined_date
+1,17,QA Engineer,9,2026-05-09
+1,9,Designer,19,2026-05-07
+1,18,Data Engineer,9,2026-07-15
+1,1,Business Analyst,12,2026-04-25
+1,22,Project Lead,18,2026-04-28
+2,17,Data Engineer,34,2025-09-30
+2,4,ML Engineer,11,2024-12-08
+2,21,ML Engineer,36,2024-12-18
+3,20,Business Analyst,3,2026-01-09
+3,11,Data Engineer,21,2026-01-17
+4,8,Project Lead,7,2026-06-07
+4,19,Project Lead,36,2026-04-13
+5,22,ML Engineer,18,2026-08-16
+5,16,Designer,29,2026-07-27
+5,18,Designer,14,2026-08-28
+6,13,Business Analyst,35,2025-08-23
+6,22,Project Lead,17,2026-02-09
+6,21,Project Lead,23,2025-07-27
+6,12,Designer,37,2026-08-18
+7,8,Project Lead,4,2026-05-28
+7,1,Project Lead,34,2025-02-21
+7,3,Data Engineer,33,2025-02-19
+7,21,Designer,10,2025-03-14
+7,2,Designer,32,2025-02-21
+7,25,Business Analyst,28,2025-11-11
+8,4,Business Analyst,24,2025-05-13
+8,22,Business Analyst,31,2026-01-29
+9,2,QA Engineer,23,2025-12-18
+9,13,ML Engineer,14,2025-12-24
+10,15,ML Engineer,6,2026-01-11
+10,5,Designer,8,2025-12-17
+10,14,QA Engineer,36,2026-03-04
+10,6,Project Lead,17,2025-12-24
+10,9,Business Analyst,33,2026-01-13
+10,25,ML Engineer,27,2025-12-17
+11,13,Business Analyst,20,2025-08-24
+11,1,QA Engineer,37,2025-09-08
+11,9,QA Engineer,33,2025-08-06
+12,10,Designer,36,2026-06-11
+12,7,QA Engineer,22,2026-06-11
+12,2,Project Lead,32,2026-07-10
+13,6,Designer,6,2026-05-12
+13,2,ML Engineer,27,2026-04-06
+13,17,Designer,17,2026-05-06
+13,3,Designer,4,2026-05-08
+13,25,Project Lead,28,2026-05-11
+13,22,Designer,38,2026-05-02
+14,9,Data Engineer,17,2025-08-27
+14,7,Business Analyst,10,2025-09-22
+14,22,QA Engineer,21,2026-02-24
+14,23,Data Engineer,6,2025-12-20
