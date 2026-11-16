@@ -174,7 +174,7 @@ def _(ask):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    4 people are committed above 40 hours a week across their active projects: Jeremy Roberts leads at 105, well above a single full-time week, followed by Jeffrey Lawrence at 69, Susan Rogers at 55 and Danielle Johnson at 49.
+    Reading "active" as the project's `status = 'active'`, 4 people are committed above 40 hours a week across their active projects: Jeremy Roberts leads at 105, well above a single full-time week, followed by Jeffrey Lawrence at 69, Susan Rogers at 55 and Danielle Johnson at 49.
     """)
     return
 
@@ -381,7 +381,7 @@ def _(ask):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    LLM app tasks take the longest to finish on average, 17.9 days over 58 completed tasks, against 17.3 days for data pipeline tasks and 13.3 days for internal tools, which finish noticeably faster.
+    Counting only tasks that have actually finished, LLM app tasks take the longest on average, 17.9 days over 58 completed tasks, against 17.3 days for data pipeline tasks and 13.3 days for internal tools, which finish noticeably faster.
     """)
     return
 
@@ -415,7 +415,7 @@ def _(ask):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    `Mack-Peterson` is by far our most GPU-cloud-intensive client, at $171,992.40, well ahead of the next closest, `Wong, Lynch and Jackson` at $118,881.22.
+    Reading "clients" as paying clients only, leaving out internal projects, `Mack-Peterson` is by far our most GPU-cloud-intensive client, at $171,992.40, well ahead of the next closest, `Wong, Lynch and Jackson` at $118,881.22.
     """)
     return
 
@@ -467,7 +467,7 @@ def _(mo):
     mo.md(r"""
     ## 2. Working With the Agent
 
-    My first draft of question 10 was not "which clients cost the most in GPU cloud spend" — it was "which people are on a project's team but have never been given a single task on any project." My agent wrote the anti-join for it (`assignments` LEFT JOIN `tasks` on `person_id`, keeping the unmatched rows), and I ran it expecting a short list of idle teammates. It came back empty: 0 rows. I did not accept that as the answer, because an empty result for a "which people" question is a sign the question was the wrong one to ask of this data, not that nobody is ever idle — with 263 tasks spread over only 24 people, everybody has been assigned something, somewhere, at some point, so the question as worded could never find anybody. I replaced it with the GPU-cloud-spend-by-client question instead, which does return a real, varied answer (7 clients, from \$171,992 down to \$32,334). That decision is in the same commit as question 10's final cells.
+    My first draft of question 10 was not "which clients cost the most in GPU cloud spend" — it was "which people are on a project's team but have never been given a single task on any project." My agent wrote the anti-join for it (`assignments` LEFT JOIN `tasks` on `person_id`, keeping the unmatched rows), and I ran it expecting a short list of idle teammates. It came back empty: 0 rows. I did not accept that as the answer, because an empty result for a "which people" question is a sign the question was the wrong one to ask of this data, not that nobody is ever idle — with 263 tasks spread over only 24 people, everybody has been assigned something, somewhere, at some point, so the question as worded could never find anybody. I replaced it with the GPU-cloud-spend-by-client question instead, which does return a real, varied answer (7 clients, from \$171,992 down to \$32,334). The replacement is the `q10_result` cell in this notebook, committed in `0e258cf`, "db: answer the 10 business questions and add the How I Know, Working With the Agent, Reading It Back follow-up, Going Further and Time Spent sections."
     """)
     return
 
