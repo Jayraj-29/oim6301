@@ -61,18 +61,14 @@ erDiagram
 
 ## 3. What One Row Means
 
-- One row of `people` is one employee of BabsonAI Labs, including the two founders.
-- One row of `projects` is one project the company is running, for a client or for itself.
-- One row of `assignments` is one person's commitment to one project: their role on it, the hours a week they give it, and the date they joined.
-- One row of `tasks` is one piece of work on one project, assigned to at most one person.
-- One row of `expenses` is one cost charged to one project.
+*(To do, by hand: one sentence per table, in the way Northwind's would read, e.g. "One row of `orders` is one order placed by one customer." Tables: `people`, `projects`, `assignments`, `tasks`, `expenses`.)*
 
 ## 4. Design Choices
 
-**The key.** `work_email` looks like a natural key, the way an order number or a ticker would be, but the scenario says it changes whenever somebody changes title. A primary key is not supposed to change, so I gave `people` a surrogate key, `person_id`, instead, and kept `work_email` as `UNIQUE` so no two people can still share one.
+**The key.** *(To do, by hand: which key you chose where the business already had one, such as an email, and why.)*
 
-**Optional relationships.** `people.manager_id` is nullable because "the two founders report to nobody." `projects.client_name` is nullable because "internal projects have none." `tasks.assigned_to` is nullable because "a new task may be unassigned," and `tasks.completed_date` is nullable because it "stays empty until it is" completed.
+**Optional relationships.** *(To do, by hand: which relationships are optional, and what in the scenario tells you so.)*
 
-**The rule the tables cannot hold.** "A task is assigned only to somebody who works on its project" compares three tables at once — `tasks`, `assignments` and `people` — and a `CHECK` can only look at one row of one table, so the database cannot enforce it. `build.py`'s business question 7 checks it instead, with a query that joins `tasks` to `assignments` and finds any assigned task whose person is not on that project's team.
+**The rule the tables cannot hold.** *(To do, by hand: which of the scenario's rules your tables cannot hold with a `CHECK`, and how you check it instead.)*
 
-**Working with the agent.** I collaborated with my agent: I gave it the scenario and asked it to create the ERD and the CREATE TABLE statements. The agent noticed that one rule from the scenario wasn't enforced in make_data.py — that a task can't be created before the person it's assigned to has started — and fixed the data generator so no task breaks that rule. I checked the optional relationships in the data myself, to make sure each one matched a specific sentence in the scenario (no one to report to, no client, unassigned, incomplete) rather than just trusting the nullable option.
+**Working with the agent.** *(To do, by hand: one thing your agent proposed for the design that you changed or did not take, and why; if you designed it alone, one thing you checked in the ERD your agent drew.)*

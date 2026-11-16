@@ -477,11 +477,7 @@ def _(mo):
     mo.md(r"""
     ## 3. Reading It Back
 
-    **The question I picked, before answering anything above:** business question 6, *"One row per project with its number of tasks and its total expenses, each checked against counting it on its own."* It is tagged *(three tables or more)* on the list, and it joins `projects`, `tasks` and `expenses`.
-
-    **My prediction.** Part A's Row Counts section says there are 263 rows in `tasks` and 160 in `expenses`, and business question 5 says 3 of the 14 projects have no expenses at all, so only 11 projects have both. If I chain `projects JOIN tasks ... JOIN expenses ...` on `project_id` in one query, `project_id` is not unique in either `tasks` or `expenses`, so the join matches every task row of a project against every expense row of that same project, the same fan-out the notebook showed for `orders` and `order_details`. Spread evenly, that is about 263 ÷ 14 ≈ 19 tasks and 160 ÷ 11 ≈ 14.5 expenses for each of the 11 projects with both, so I expect roughly 19 × 14.5 × 11 ≈ 3,030 rows before any `GROUP BY` — far more than 263 or 160 alone, because the 3-table join counts every pairing, not every task or every expense.
-
-    *(Committed as `db: prediction`, before running the query below.)*
+    *(To do, by hand: pick a question from the list above tagged "three tables or more," name it here, and write your prediction — how many rows you expect its joins to produce before any `GROUP BY`, and why — before you run the joins below. Commit this paragraph alone with the message `db: prediction`, before running the query below.)*
     """)
     return
 
@@ -489,7 +485,7 @@ def _(mo):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Running the joins alone**, with no `GROUP BY`, to count the fan-out directly:
+    **Running the joins alone**, with no `GROUP BY`, to count the fan-out directly. *(This query joins `projects`, `tasks` and `expenses`, for question 6 — swap the tables below if you pick a different question.)*
     """)
     return
 
@@ -509,9 +505,7 @@ def _(ask):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    **Did my prediction match?** Close, yes: I predicted about 3,030 rows, and the real count is 3,046. The gap is small and comes from exactly the unevenness I waved away by "spreading evenly": project 7 alone has 22 tasks and 19 expenses, both above the per-project average, so its share of the join is 22 × 19 = 418 rows, almost twice what an even split would predict for one project. Smaller or more lopsided projects pull the total back down elsewhere, and the two effects land close to my estimate rather than exactly on it. Either way, 3,046 is nowhere near 263 or 160 — it is what you get by pairing every task of a project with every expense of that same project, which is exactly why question 6 counts the two totals separately instead of joining all three tables at once.
-
-    **What one row of the final, grouped result means.** Take the row for project 7, `Universal foreground data-warehouse`: `task_count` 22, `total_expenses` \$183,129.58. That one row means two separate facts about the same project, sitting side by side — it has 22 tasks logged against it, and it has been charged \$183,129.58 in expenses in total — each counted once, the way a manager would actually want to read it, not multiplied together into the 418 rows the raw three-table join would have produced for that project alone.
+    *(To do, by hand: did your prediction match the number above? Why, or why not? Then write, in your own words, what one row of the final, grouped result means.)*
     """)
     return
 
@@ -575,7 +569,7 @@ def _(mo):
     mo.md(r"""
     ## 5. Time Spent
 
-    About 6 hours outside class, across the design, the build, and these 10 questions.
+    *(To do: about how many hours the whole project took you outside class, as one number. Not graded.)*
     """)
     return
 
