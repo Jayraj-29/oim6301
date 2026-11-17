@@ -12,7 +12,7 @@
 
 import marimo
 
-__generated_with = "0.25.1"
+__generated_with = "0.24.2"
 app = marimo.App(width="medium", sql_output="polars")
 
 
@@ -31,7 +31,7 @@ def _():
     import duckdb
     import polars as pl
 
-    return alt, date, duckdb, pl
+    return alt, date, duckdb
 
 
 @app.cell(hide_code=True)
@@ -62,7 +62,7 @@ def _(date):
 
 
 @app.cell
-def _(mo, duckdb):
+def _(duckdb, mo):
     database = mo.notebook_dir() / "database.duckdb"
 
     def ask(sql):
@@ -96,7 +96,7 @@ def _(ask):
         SELECT * FROM project_spend_vs_budget ORDER BY spent_percent DESC
     """)
     q1_result
-    return (q1_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -118,7 +118,7 @@ def _(mo):
 
 
 @app.cell
-def _(ask, as_of):
+def _(as_of, ask):
     q2_result = ask(f"""
         SELECT
             t.task_id,
@@ -132,7 +132,7 @@ def _(ask, as_of):
         ORDER BY t.due_date
     """)
     q2_result
-    return (q2_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -168,7 +168,7 @@ def _(ask):
         ORDER BY hours_per_week DESC
     """)
     q3_result
-    return (q3_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -190,7 +190,7 @@ def _(mo):
 
 
 @app.cell
-def _(ask, as_of):
+def _(as_of, ask):
     q4_result = ask(f"""
         WITH by_category AS (
             SELECT category, sum(amount) AS total
@@ -204,7 +204,7 @@ def _(ask, as_of):
         ORDER BY total DESC
     """)
     q4_result
-    return (q4_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -306,7 +306,7 @@ def _(ask):
         WHERE t.assigned_to IS NOT NULL AND a.person_id IS NULL
     """)
     q7_result
-    return (q7_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -340,7 +340,7 @@ def _(ask):
         ORDER BY direct_reports DESC
     """)
     q8_result
-    return (q8_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -375,7 +375,7 @@ def _(ask):
         ORDER BY avg_days_to_complete DESC
     """)
     q9_result
-    return (q9_result,)
+    return
 
 
 @app.cell(hide_code=True)
@@ -477,15 +477,9 @@ def _(mo):
     mo.md(r"""
     ## 3. Reading It Back
 
-    *(To do, by hand: pick a question from the list above tagged "three tables or more," name it here, and write your prediction — how many rows you expect its joins to produce before any `GROUP BY`, and why — before you run the joins below. Commit this paragraph alone with the message `db: prediction`, before running the query below.)*
-    """)
-    return
+    **The question I picked, before answering anything above:** business question 6, *"One row per project with its number of tasks and its total expenses, each checked against counting it on its own."* It is tagged *(three tables or more)* on the list, and it joins `projects`, `tasks,` and `expenses`.
 
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""
-    **Running the joins alone**, with no `GROUP BY`, to count the fan-out directly. *(This query joins `projects`, `tasks` and `expenses`, for question 6 — swap the tables below if you pick a different question.)*
+    My Prediction: The Row Counts section of Part A states that there are 263 rows in the tasks table and 160 rows in the expenses table. In business question 5 it was mentioned that of the 14 projects, 3 of them had no expenses. This means that only 11 of the projects had both. When joining all three tables together (projects JOIN tasks ... JOIN expenses ...) using project_id, as project_id isn’t unique in either the tasks or expenses table it will join all the task rows to all the expense rows for the same project. Overall there should be around 263/14 = 19 tasks and 160/11 = 14.5 expenses per project (for the 11 projects which have both). This means that there will be approximately 19 × 14.5 × 11 = 3,030 rows of data before grouping. This will be much larger than 263 and 160 as we’re joining all three tables together.
     """)
     return
 
@@ -505,7 +499,9 @@ def _(ask):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""
-    *(To do, by hand: did your prediction match the number above? Why, or why not? Then write, in your own words, what one row of the final, grouped result means.)*
+    I was close with my prediction! I said there would be approximately 3030 rows, and there are 3046 rows. This is due to the fact that the data isn’t split equally. Project 7 has a higher than average amount of tasks (22) and expenses (19). So when we do our join, we get 22 × 19 = 418 rows from project 7. Which is almost double what we would expect if the data were split equally.
+
+    If we look at the final row of our grouped data for project 7, Universal foreground data-warehouse, we can see that task_count = 22 and total_expenses = $183,129.58. This means that two different facts have been combined into one row. We know that project 7 has 22 tasks recorded and has been charged $183,129.58 in total for expenses. Each of these facts have only been counted once.
     """)
     return
 
@@ -569,7 +565,7 @@ def _(mo):
     mo.md(r"""
     ## 5. Time Spent
 
-    *(To do: about how many hours the whole project took you outside class, as one number. Not graded.)*
+    I spent 3 hours on this project.
     """)
     return
 

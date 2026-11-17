@@ -61,14 +61,18 @@ erDiagram
 
 ## 3. What One Row Means
 
-*(To do, by hand: one sentence per table, in the way Northwind's would read, e.g. "One row of `orders` is one order placed by one customer." Tables: `people`, `projects`, `assignments`, `tasks`, `expenses`.)*
+- One row of `people` is one employee of BabsonAI Labs, including the two founders.
+- One row of `projects` is one project the company is running, for a client or for itself.
+- One row of `assignments` is one person's commitment to one project: their role on it, the hours a week they give it, and the date they joined.
+- One row of `tasks` is one piece of work on one project, assigned to at most one person.
+- One row of `expenses` is one cost charged to one project.
 
 ## 4. Design Choices
 
-**The key.** *(To do, by hand: which key you chose where the business already had one, such as an email, and why.)*
+**The key.** This seems like a natural key for work_email, like an order number or ticker. However, the scenario states that it will change when someone changes their title. Primary keys should never be changed so I have used a surrogate key (person_id) for people. But work_email is still marked as UNIQUE to ensure no two people have the same.
 
-**Optional relationships.** *(To do, by hand: which relationships are optional, and what in the scenario tells you so.)*
+**Optional relationships.** people.manager_id is nullable due to "the two founders report to nobody," projects.client_name is nullable due to "internal projects have none," tasks.assigned_to is nullable due to "a new task may be unassigned," and tasks.completed_date is nullable due to "stays empty until it is" completed.
 
-**The rule the tables cannot hold.** *(To do, by hand: which of the scenario's rules your tables cannot hold with a `CHECK`, and how you check it instead.)*
+**The rule the tables cannot hold.** A task is assigned only to somebody who works on its project" requires three tables (tasks, assignments, people). As CHECK constraints can only apply to one row in one table, this is not something that can be enforced by the database. Instead the constraint was checked using the query in question 7 of build.py. This joins tasks to assignments and ensures there are no tasks assigned that aren’t assigned to someone on the teams for that project.
 
-**Working with the agent.** *(To do, by hand: one thing your agent proposed for the design that you changed or did not take, and why; if you designed it alone, one thing you checked in the ERD your agent drew.)*
+**Working with the agent.**  I worked with my agent. I told them the scenario and asked them to design the ERD and CREATE TABLES. They noticed that one of the constraints from the scenario wasn’t being enforced in make_data.py. The constraint was that a task couldn’t be created until the person it is assigned to has begun. They fixed the data generator so that this can’t happen. I also checked that the optional relationships were correct in the data. Ensuring the relationship was there due to a specific sentence in the scenario.
